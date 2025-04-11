@@ -7,7 +7,7 @@ import java.util.*;
 public class gameloop { // game loop is going to update the frame with all the new information at a given FPS. 
 
     public float FPSTarget;
-    public ArrayList<MonoBehaviour> allGameObjectsInScene; 
+    public  ArrayList<MonoBehaviour> allGameObjectsInScene; 
 
 
     public window w; 
@@ -35,8 +35,10 @@ public class gameloop { // game loop is going to update the frame with all the n
         fakeLoop();
     }
 
-    public static MonoBehaviour Instantiate(MonoBehaviour object, float delay){
-        
+    public  MonoBehaviour Instantiate(MonoBehaviour object, float delay){
+        allGameObjectsInScene.add(object);
+
+        return object; 
     }
 
 }
