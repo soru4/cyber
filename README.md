@@ -1,9 +1,18 @@
 # Cybersecurity Capstone final project
 
-Authors:
+A game for the Cybersecurity Capstone class made with Swing.
+
+## Authors
 
 * Sohun Tambe (@soru4)
 * Leonid Lednev (@leonidlednev2)
 * Brandon Wright (@EnderTheWigg)
 
 Licensed under the MIT.
+
+## Running
+
+```bash
+cd source
+java runner.java
+```

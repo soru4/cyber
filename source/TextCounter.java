@@ -1,14 +1,15 @@
-public class TextCounter extends MonoBehaviour{
-    
-    public TextCounter(){
-        
-    }
-    public void Start(){
+public class TextCounter extends MonoBehaviour {
+
+    public TextCounter() {
 
     }
 
-    public void Update(){
+    public void Start() {
 
     }
-    
+
+    public void Update() {
+
+    }
+
 }

@@ -5,12 +5,12 @@ import java.awt.event.*;
 
 public class window implements ActionListener {
 
-    public  JFrame frame;
-    public  JPanel panel;
-    public  JLabel label;
-    public  JTextField textField;
-    public  JButton button;
-    public int x = 0; 
+    public JFrame frame;
+    public JPanel panel;
+    public JLabel label;
+    public JTextField textField;
+    public JButton button;
+    public int x = 0;
 
     public window() {
         init();
@@ -28,8 +28,8 @@ public class window implements ActionListener {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(10, 10));
 
-        panel = new JPanel(); // panel kinda like <View>. 
-        label = new JLabel("" +x); // text i guess..
+        panel = new JPanel(); // panel kinda like <View>.
+        label = new JLabel("" + x); // text i guess..
         textField = new JTextField(20); // text input
         button = new JButton("Save"); // button.
 
