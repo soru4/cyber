@@ -1,14 +1,19 @@
-public class TextCounter extends MonoBehaviour{
-    
-    public TextCounter(){
+
+public class TextCounter extends MonoBehaviour {
+int x = 0; 
+    public TextCounter() {
+        super();
+    }
+
+    public void Start() {
+
+    }
+
+    public void Update() {
+        System.out.println("yay");
+        win.label.setText(x + "");
         
-    }
-    public void Start(){
-
+       x += 1;
     }
 
-    public void Update(){
-
-    }
-    
 }
