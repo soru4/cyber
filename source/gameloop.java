@@ -5,15 +5,19 @@ import java.util.*;
 
 
 public class gameloop { // game loop is going to update the frame with all the new information at a given FPS. 
-
+    public static gameloop __inst__;
     public float FPSTarget;
     public  ArrayList<MonoBehaviour> allGameObjectsInScene; 
 
 
-    public window w; 
+    public window win; 
     public gameloop(window gameWindow, float FPSTarget) {
-        this.w = gameWindow; 
+        __inst__ = this;
+        this.win = gameWindow; 
         this.FPSTarget = FPSTarget;
+        for(MonoBehaviour x : allGameObjectsInScene){
+            x.Start();
+        }
         fakeLoop();
 
     }
@@ -28,16 +32,18 @@ public class gameloop { // game loop is going to update the frame with all the n
 
         // Loop through everything. 
 
-        this.w.label.setText(this.w.x+ "");
-      
-        this.w.updateFrame(this.w.frame);
-        this.w.x+=1; 
+        this.win.label.setText(this.win.x+ "");
+        for(MonoBehaviour x : allGameObjectsInScene){
+            x.Update();
+        }
+        this.win.updateFrame(this.win.frame);
+        this.win.x+=1; 
         fakeLoop();
     }
 
     public  MonoBehaviour Instantiate(MonoBehaviour object, float delay){
         allGameObjectsInScene.add(object);
-
+        object.Start();
         return object; 
     }
 

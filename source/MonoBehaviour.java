@@ -1,18 +1,14 @@
-public class MonoBehaviour{
+public abstract  class MonoBehaviour{
 
-    public gameloop gameRunner; 
 
-    public MonoBehaviour(gameloop x){
-        this.gameRunner = x;
-        gameRunner.Instantiate(this,1f);
+
+    public MonoBehaviour(){
+
+        gameloop.__inst__.Instantiate(this,0f);
     }
 
-    public void Start(){
-
-    }
+    public abstract  void Start();
 
 
-    public void Update(){
-
-    }
+    public abstract  void Update();
 }
