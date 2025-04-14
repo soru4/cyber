@@ -10,7 +10,7 @@ int x = 0;
     }
 
     public void Update() {
-        System.out.println("yay");
+        //System.out.println("yay");
         win.label.setText(x + "");
         
        x += 1;
