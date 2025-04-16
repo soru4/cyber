@@ -1,6 +1,7 @@
 
 import javax.swing.JLabel;
-
+import javax.swing.SwingUtilities;
+import java.awt.*;
 import java.util.*;
 
 public class gameloop { // game loop is going to update the frame with all the new information at a given FPS. 
@@ -22,7 +23,8 @@ public class gameloop { // game loop is going to update the frame with all the n
             x.Start();
         }
         fakeLoop();
-
+        win.frame.repaint((int) (1000 / this.FPSTarget));
+        win.frame.revalidate();
     }
 
     public void fakeLoop() {
@@ -37,7 +39,10 @@ public class gameloop { // game loop is going to update the frame with all the n
         for (MonoBehaviour x : allGameObjectsInScene) {
             x.Update();
         }
-        win.updateFrame(this.win.frame);
+       // System.out.println(MouseInfo.getPointerInfo().getLocation() );
+        
+        
+      
         fakeLoop();
     }
 

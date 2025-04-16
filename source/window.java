@@ -25,7 +25,7 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
 
     private void init() {
         frame = new JFrame("Level One");
-        frame.setSize(800, 500);
+        frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(10, 10));
 
@@ -44,14 +44,7 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
             updateFrame(frame);
         });
         button2.addActionListener((ActionEvent e) -> {
-            ImageIcon imageIcon = new ImageIcon("C:/CS/School/Cyber/cyber/assets/75519.png/");
-            label2 = new JLabel(imageIcon);
-            label2.setVisible(true);
-            label2.addMouseListener(this);
-            label2.addMouseMotionListener(this);
-            panel.add(label2);
-            panel.revalidate();
-            panel.repaint();
+            gameloop.__inst__.Instantiate(new movableComponent(new ImageIcon("assets/75519.png"), new Point(0,0)), 0);
 
         });
         frame.add(panel, BorderLayout.CENTER);
@@ -94,17 +87,7 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        Point location = SwingUtilities.convertPoint(label2, e.getPoint(), label2.getParent());
-        if(label2.getParent().getBounds().contains(location)){
-            Point newLocation = label2.getLocation();
-            newLocation.translate(location.x - startPoint.x, location.y - startPoint.y);
-            newLocation.x = Math.max(newLocation.x, 0);
-            newLocation.y = Math.max(newLocation.y, 0);
-            newLocation.x = Math.min(newLocation.x, label2.getParent().getWidth() - label2.getWidth());
-            newLocation.y = Math.min(newLocation.y, label2.getParent().getHeight() - label2.getHeight());
-            label2.setLocation(newLocation);
-            startPoint = location;
-        }
+       
 
     }
 

@@ -6,7 +6,7 @@ public  class MonoBehaviour {
     public MonoBehaviour() {
 
   
-        // this.win = gameloop.__inst__.win;
+        this.win = gameloop.__inst__.win;
     }
 
     public  void Start(){
