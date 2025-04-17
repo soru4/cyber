@@ -5,11 +5,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-class movableComponent extends MonoBehaviour {
+class MovableComponent extends MonoBehaviour {
     public JLabel label;
     public Point currentPos;
 
-    public movableComponent(ImageIcon image, Point x) {
+    public MovableComponent(ImageIcon image, Point x) {
         // this.win.panel.setLayout(null);
         label = new JLabel(image);
         this.win.panel.add(label);

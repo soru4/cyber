@@ -4,7 +4,7 @@ import javax.swing.JPanel;
 
 public class Level1 extends LevelTemplate {
 
-    public Level1(JPanel x, window w) {
+    public Level1(JPanel x, Window w) {
         super(x, w);
     }
 
