@@ -43,7 +43,7 @@ public class gameloop { // game loop is going to update the frame with all the n
         
         
       
-        fakeLoop();
+        //fakeLoop();
     }
 
     public MonoBehaviour Instantiate(MonoBehaviour object, float delay) {

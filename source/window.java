@@ -44,7 +44,15 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
             updateFrame(frame);
         });
         button2.addActionListener((ActionEvent e) -> {
-            gameloop.__inst__.Instantiate(new movableComponent(new ImageIcon("assets/75519.png"), new Point(0,0)), 0);
+            // gameloop.__inst__.Instantiate(new movableComponent(new ImageIcon("assets/75519.png"), new Point(0,0)), 0);
+            ImageIcon imageIcon = new ImageIcon("cyber/assets/75519.png");
+            JLabel instanceLabel = new JLabel(imageIcon);
+            instanceLabel.setVisible(true);
+            instanceLabel.addMouseListener(this);
+            instanceLabel.addMouseMotionListener(this);
+            panel.add(instanceLabel);
+            panel.revalidate();
+            panel.repaint();
 
         });
         frame.add(panel, BorderLayout.CENTER);
@@ -65,7 +73,8 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
 
     @Override
     public void mousePressed(MouseEvent e) {
-        startPoint = SwingUtilities.convertPoint(label2, e.getPoint(), label2.getParent());
+        JLabel touched = (JLabel)(e.getComponent());
+        startPoint = SwingUtilities.convertPoint(touched, e.getPoint(), touched.getParent());
     }
 
     @Override
@@ -87,14 +96,26 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
 
     @Override
     public void mouseDragged(MouseEvent e) {
-       
+        JLabel touched = (JLabel)(e.getComponent());
+        
+        Point location = SwingUtilities.convertPoint(touched, e.getPoint(), touched.getParent());
+        if(touched.getParent().getBounds().contains(location)){
+            Point newLocation = touched.getLocation();
+            newLocation.translate(location.x - startPoint.x, location.y - startPoint.y);
+            newLocation.x = Math.max(newLocation.x, 0);
+            newLocation.y = Math.max(newLocation.y, 0);
+            newLocation.x = Math.min(newLocation.x, touched.getParent().getWidth() - touched.getWidth());
+            newLocation.y = Math.min(newLocation.y, touched.getParent().getHeight() - touched.getHeight());
+            touched.setLocation(newLocation);
+            startPoint = location;
+        }
 
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+        //throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
     }
 
     
