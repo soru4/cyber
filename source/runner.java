@@ -8,7 +8,7 @@ public class runner {
         
 
         ///All lines of code need to be above this line!!!!
-        gameloop gameRunner = new gameloop(mainGameWindow, 07);
+        gameloop gameRunner = new gameloop(mainGameWindow, 12);
        
         
 
