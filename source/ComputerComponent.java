@@ -8,4 +8,16 @@ public class ComputerComponent {
         this.id = id;
         this.type = type;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getType() {
+        return type;
+    }
 }
