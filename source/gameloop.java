@@ -23,17 +23,17 @@ public class gameloop { // game loop is going to update the frame with all the n
             x.Start();
         }
         fakeLoop();
-        win.frame.repaint((int) (1000 / this.FPSTarget));
-        win.frame.revalidate();
+        //win.frame.repaint((int) (1000 / this.FPSTarget));
+        //win.frame.revalidate();
     }
 
     public void fakeLoop() {
 
-        try {
-            Thread.sleep((int) (1000 / this.FPSTarget));
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        // try {
+        //     Thread.sleep((int) (1000 / this.FPSTarget));
+        // } catch (InterruptedException e) {
+        //     Thread.currentThread().interrupt();
+        // }
 
         // Loop through everything. 
         for (MonoBehaviour x : allGameObjectsInScene) {

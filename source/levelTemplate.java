@@ -1,7 +1,7 @@
 
 import javax.swing.*;
 
-class levelTemplate{
+class levelTemplate {
 
     public JPanel mainPanel; 
     public window win;
@@ -10,6 +10,6 @@ class levelTemplate{
         win = w; 
     }
     public void  setLevelActive(){
-        
+
     }
 }
