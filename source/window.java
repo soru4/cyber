@@ -13,6 +13,7 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
     public JButton button;
     public JButton button2;
     Point startPoint;
+
     public window() {
         init();
     }
@@ -29,8 +30,8 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(10, 10));
 
-        panel = new JPanel(); // panel kinda like <View>. 
-        label = new JLabel("" ); // text i guess..
+        panel = new JPanel(); // panel kinda like <View>.
+        label = new JLabel(""); // text i guess..
         textField = new JTextField(20); // text input
         button = new JButton("Save"); // button.
         button2 = new JButton("Add New Label");
@@ -44,7 +45,8 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
             updateFrame(frame);
         });
         button2.addActionListener((ActionEvent e) -> {
-            // gameloop.__inst__.Instantiate(new movableComponent(new ImageIcon("assets/75519.png"), new Point(0,0)), 0);
+            // gameloop.__inst__.Instantiate(new movableComponent(new
+            // ImageIcon("assets/75519.png"), new Point(0,0)), 0);
             ImageIcon imageIcon = new ImageIcon("cyber/assets/75519.png");
             JLabel instanceLabel = new JLabel(imageIcon);
             instanceLabel.setVisible(true);
@@ -64,16 +66,14 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
         j.setVisible(true);
     }
 
-
-    
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        JLabel touched = (JLabel)(e.getComponent());
+        JLabel touched = (JLabel) (e.getComponent());
         startPoint = SwingUtilities.convertPoint(touched, e.getPoint(), touched.getParent());
     }
 
@@ -85,21 +85,23 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
     @Override
     public void mouseEntered(MouseEvent e) {
         // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'mouseEntered'");
+        // throw new UnsupportedOperationException("Unimplemented method
+        // 'mouseEntered'");
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
         // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'mouseExited'");
+        // throw new UnsupportedOperationException("Unimplemented method
+        // 'mouseExited'");
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        JLabel touched = (JLabel)(e.getComponent());
-        
+        JLabel touched = (JLabel) (e.getComponent());
+
         Point location = SwingUtilities.convertPoint(touched, e.getPoint(), touched.getParent());
-        if(touched.getParent().getBounds().contains(location)){
+        if (touched.getParent().getBounds().contains(location)) {
             Point newLocation = touched.getLocation();
             newLocation.translate(location.x - startPoint.x, location.y - startPoint.y);
             newLocation.x = Math.max(newLocation.x, 0);
@@ -115,8 +117,7 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
     @Override
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+        // throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
     }
 
-    
 }

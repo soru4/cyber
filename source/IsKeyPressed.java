@@ -7,11 +7,11 @@ import javax.crypto.spec.OAEPParameterSpec;
 
 public class IsKeyPressed {
 
-    public enum KeyCode{
+    public enum KeyCode {
         A,
         B,
-        C, 
-        D, 
+        C,
+        D,
         E,
         F,
         G,
@@ -33,25 +33,29 @@ public class IsKeyPressed {
         W,
         X,
         Y,
-        Z, 
-        One, 
+        Z,
+        One,
         Two,
-        Three, 
+        Three,
         Four,
-        Five, 
+        Five,
         Six,
         Seven,
         Eight,
         Nine,
         Zero
     }
+
     private static volatile boolean wPressed = false;
+
     public static boolean isWPressed() {
         synchronized (IsKeyPressed.class) {
             return wPressed;
         }
     }
-    private static ArrayList keysPressed = new ArrayList<KeyCode>();
+
+    private static ArrayList<KeyCode> keysPressed = new ArrayList<KeyCode>();
+
     public static void main(String[] args) {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
 
@@ -59,29 +63,29 @@ public class IsKeyPressed {
             public boolean dispatchKeyEvent(KeyEvent ke) {
                 synchronized (IsKeyPressed.class) {
                     switch (ke.getID()) {
-                    case KeyEvent.KEY_PRESSED:
-                        if (ke.getKeyCode() == KeyEvent.VK_W) {
-                            wPressed = true;
-                        }
-                        switch (ke.getKeyCode()) {
-                            case KeyEvent.VK_A:
-                                KeyCode x = KeyCode.A; 
-                                keysPressed.add(x);
-                                break;
-                            case KeyEvent.VK_B:
-                                KeyCode x1 = KeyCode.B; 
-                                keysPressed.add(x1);
-                                break;
-                            default:
-                                throw new AssertionError();
-                        }
-                        break;
+                        case KeyEvent.KEY_PRESSED:
+                            if (ke.getKeyCode() == KeyEvent.VK_W) {
+                                wPressed = true;
+                            }
+                            switch (ke.getKeyCode()) {
+                                case KeyEvent.VK_A:
+                                    KeyCode x = KeyCode.A;
+                                    keysPressed.add(x);
+                                    break;
+                                case KeyEvent.VK_B:
+                                    KeyCode x1 = KeyCode.B;
+                                    keysPressed.add(x1);
+                                    break;
+                                default:
+                                    throw new AssertionError();
+                            }
+                            break;
 
-                    case KeyEvent.KEY_RELEASED:
-                        if (ke.getKeyCode() == KeyEvent.VK_W) {
-                            wPressed = false;
-                        }
-                        break;
+                        case KeyEvent.KEY_RELEASED:
+                            if (ke.getKeyCode() == KeyEvent.VK_W) {
+                                wPressed = false;
+                            }
+                            break;
                     }
                     return false;
                 }

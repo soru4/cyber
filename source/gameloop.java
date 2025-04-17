@@ -4,7 +4,8 @@ import javax.swing.SwingUtilities;
 import java.awt.*;
 import java.util.*;
 
-public class gameloop { // game loop is going to update the frame with all the new information at a given FPS. 
+public class gameloop { // game loop is going to update the frame with all the new information at a
+                        // given FPS.
 
     public static gameloop __inst__;
     public float FPSTarget;
@@ -35,15 +36,13 @@ public class gameloop { // game loop is going to update the frame with all the n
             Thread.currentThread().interrupt();
         }
 
-        // Loop through everything. 
+        // Loop through everything.
         for (MonoBehaviour x : allGameObjectsInScene) {
             x.Update();
         }
-       // System.out.println(MouseInfo.getPointerInfo().getLocation() );
-        
-        
-      
-        //fakeLoop();
+        // System.out.println(MouseInfo.getPointerInfo().getLocation() );
+
+        // fakeLoop();
     }
 
     public MonoBehaviour Instantiate(MonoBehaviour object, float delay) {
