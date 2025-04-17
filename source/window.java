@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class window implements ActionListener, MouseListener, MouseMotionListener {
+public class Window implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;
@@ -14,7 +14,7 @@ public class window implements ActionListener, MouseListener, MouseMotionListene
     public JButton button2;
     Point startPoint;
 
-    public window() {
+    public Window() {
         init();
     }
 

@@ -1,11 +1,11 @@
 
-public class runner {
+public class Runner {
 
     public static void main(String[] args) {
-        window mainGameWindow = new window();
+        Window mainGameWindow = new Window();
 
         ///All lines of code need to be above this line!!!!
-        gameloop gameRunner = new gameloop(mainGameWindow, 12);
+        Gameloop gameRunner = new Gameloop(mainGameWindow, 12);
 
     }
 }

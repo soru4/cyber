@@ -4,22 +4,22 @@ import javax.swing.SwingUtilities;
 import java.awt.*;
 import java.util.*;
 
-public class gameloop { // game loop is going to update the frame with all the new information at a
+public class Gameloop { // game loop is going to update the frame with all the new information at a
                         // given FPS.
 
-    public static gameloop __inst__;
+    public static Gameloop __inst__;
     public float FPSTarget;
     public ArrayList<MonoBehaviour> allGameObjectsInScene;
 
-    public window win;
+    public Window win;
 
-    public gameloop(window gameWindow, float FPSTarget) {
+    public Gameloop(Window gameWindow, float FPSTarget) {
         __inst__ = this;
         this.win = gameWindow;
         this.FPSTarget = FPSTarget;
 
         allGameObjectsInScene = new ArrayList<MonoBehaviour>();
-        scene s = new scene();
+        Scene s = new Scene();
         for (MonoBehaviour x : allGameObjectsInScene) {
             x.Start();
         }

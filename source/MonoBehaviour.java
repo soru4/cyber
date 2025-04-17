@@ -1,11 +1,11 @@
 
 public class MonoBehaviour {
 
-    public window win;
+    public Window win;
 
     public MonoBehaviour() {
 
-        this.win = gameloop.__inst__.win;
+        this.win = Gameloop.__inst__.win;
     }
 
     public void Start() {

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class Level1 extends levelTemplate {
+public class Level1 extends LevelTemplate {
 
     public Level1(JPanel x, window w) {
         super(x, w);

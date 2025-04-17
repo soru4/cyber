@@ -1,12 +1,12 @@
 
 import javax.swing.*;
 
-class levelTemplate {
+class LevelTemplate {
 
     public JPanel mainPanel;
-    public window win;
+    public Window win;
 
-    public levelTemplate(JPanel x, window w) {
+    public LevelTemplate(JPanel x, Window w) {
         mainPanel = x;
         win = w;
     }
