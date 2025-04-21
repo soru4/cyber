@@ -7,7 +7,7 @@ import java.util.*;
 public class GameLoop { // game loop is going to update the frame with all the new information at a
                         // given FPS.
 
-    public static GameLoop __inst__; 
+    public static GameLoop __inst__;
     public float FPSTarget;
     public ArrayList<MonoBehaviour> allGameObjectsInScene;
 
