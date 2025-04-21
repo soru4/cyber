@@ -9,8 +9,8 @@ class Scene {
 
     public Scene() {
         // add the classes that extend MonoBehaviour here( just call the constructor)
-        Gameloop.__inst__.Instantiate(new TextCounter(), 0);
-        Gameloop.__inst__.Instantiate(
+        GameLoop.__inst__.Instantiate(new TextCounter(), 0);
+        GameLoop.__inst__.Instantiate(
                 new MovableComponent(new ImageIcon("assets/75519.png"), MouseInfo.getPointerInfo().getLocation()), 0);
 
     }

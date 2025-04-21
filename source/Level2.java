@@ -1,10 +1,8 @@
-//Outline of motion system, not to be actually used from now on
-//Not deleted yet because we need to decide what we'll use in the Runner instead of the Window Class
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Window implements ActionListener, MouseListener, MouseMotionListener {
+public class Level2 implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;
@@ -15,7 +13,7 @@ public class Window implements ActionListener, MouseListener, MouseMotionListene
     public JButton button2;
     Point startPoint;
 
-    public Window() {
+    public Level2() {
         init();
     }
 

@@ -4,16 +4,16 @@ import javax.swing.SwingUtilities;
 import java.awt.*;
 import java.util.*;
 
-public class Gameloop { // game loop is going to update the frame with all the new information at a
+public class GameLoop { // game loop is going to update the frame with all the new information at a
                         // given FPS.
 
-    public static Gameloop __inst__;
+    public static GameLoop __inst__;
     public float FPSTarget;
     public ArrayList<MonoBehaviour> allGameObjectsInScene;
 
     public Window win;
 
-    public Gameloop(Window gameWindow, float FPSTarget) {
+    public GameLoop(Window gameWindow, float FPSTarget) {
         __inst__ = this;
         this.win = gameWindow;
         this.FPSTarget = FPSTarget;
