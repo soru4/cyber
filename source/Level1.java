@@ -11,7 +11,7 @@ public class Level1 extends LevelTemplate {
         this.components = new ArrayList<ComputerComponent>();
     }
 
-    @Override
+    @Override 
     public void setLevelActive() {
         // Set the level active and perform any necessary initialization here
         System.out.println("Level 1 is now active.");

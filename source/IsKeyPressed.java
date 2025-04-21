@@ -13,7 +13,7 @@ public class IsKeyPressed {
         C,
         D,
         E,
-        F,
+        F, 
         G,
         H,
         I,
