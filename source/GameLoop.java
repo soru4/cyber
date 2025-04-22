@@ -27,7 +27,16 @@ public class GameLoop { // game loop is going to update the frame with all the n
         win.frame.repaint((int) (1000 / this.FPSTarget));
         win.frame.revalidate();
     }
+    
+    public GameLoop( float FPSTarget) {
+        __inst__ = this;
+        this.win = null;
+        this.FPSTarget = FPSTarget;
 
+        allGameObjectsInScene = new ArrayList<MonoBehaviour>();
+        Scene s = new Scene();
+       
+    }
     public void fakeLoop() {
 
         try {
