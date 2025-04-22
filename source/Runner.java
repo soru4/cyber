@@ -6,7 +6,7 @@ public class Runner {
        // Window mainGameWindow = new Window();
 
         ///All lines of code need to be above this line!!!!
-        GameLoop gameRunner = new GameLoop(mainGameWindow, 12);
+        GameLoop gameRunner = new GameLoop( 12);
 
     }
 
