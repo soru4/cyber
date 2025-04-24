@@ -40,6 +40,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
         button2.addActionListener((ActionEvent e) -> {
+
             ImageIcon imageIcon = new ImageIcon("cyber/assets/75519.png");
             JLabel instanceLabel = new JLabel(imageIcon);
             wires.add(instanceLabel);
