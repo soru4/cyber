@@ -12,8 +12,8 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
     public JButton button;
     public JButton button2;
     Point startPoint;
-    private static final int ROWS = 3;
-    private static final int COLS = 10;
+    private static final int ROWS = 4;
+    private static final int COLS = 2;
 
     public Level3() {
         init();
@@ -29,7 +29,7 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
         frame = new JFrame("Level Three");
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(10, 2));
+        frame.setLayout(new GridLayout(ROWS, COLS));
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLS; j++) {
                 String text = String.format("[%d, %d]", j + 1, i + 1);
