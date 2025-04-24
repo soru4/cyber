@@ -20,7 +20,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     public JButton button;
     public ArrayList<ComputerComponent> cart;
     public Point startPoint;
-    private final String[] COMPONENTS = {"Server", "Router", "Switch", "Computer"};
+    private final String[] COMPONENTS = { "Server", "Router", "Switch", "Computer" };
     private Scenario scenario;
 
     public Level1() {
@@ -42,7 +42,6 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
         frame.setVisible(true);
     }
 
-
     public void setLevelActive() {
         // Set the level active and perform any necessary initialization here
         System.out.println("Level 1 is now active.");
@@ -51,7 +50,6 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     public ArrayList<ComputerComponent> getCart() {
         return cart;
     }
-
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -71,46 +69,43 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
 
     }
 
+    public Scenario getScenario() {
+        return scenario;
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        
-    }
 
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-    }
 
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        
-    }
 
+    }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        
-    }
 
+    }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        
-    }
 
+    }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        
-    }
 
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
     }
 
 }
