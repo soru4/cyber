@@ -21,7 +21,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     public ArrayList<ComputerComponent> cart;
     public Point startPoint;
     private final String[] COMPONENTS = { "Server", "Router", "Switch", "Computer" };
-    private Scenario scenario;
+    public Scenario scenario;
 
     public Level1() {
         init();
@@ -33,13 +33,77 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
         frame = new JFrame("Level One");
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(1, 4));
-        for (int i = 0; i < COMPONENTS.length; i++) {
-            String text = COMPONENTS[i];
-            frame.add(new JButton(text));
-        }
+        frame.setLayout(new GridBagLayout());
+        addElements();
 
         frame.setVisible(true);
+    }
+
+    private void addElements() {
+        GridBagConstraints c = new GridBagConstraints();
+        button = new JButton("Computer");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ComputerComponent computer = new ComputerComponent(200, "Computer");
+                scenario.setBudget(scenario.getBudget() - computer.getPrice());
+                label.setText(String.valueOf(scenario.getBudget()));
+                cart.add(computer);
+            }
+        });
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 0.5;
+        frame.add(button, c);
+        
+        button = new JButton("Server");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ComputerComponent server = new ComputerComponent(2000, "Server");
+                scenario.setBudget(scenario.getBudget() - server.getPrice());
+                label.setText(String.valueOf(scenario.getBudget()));
+                cart.add(server);
+            }
+        });
+        c.gridx = 1;
+        frame.add(button, c);
+
+        button = new JButton("Router");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ComputerComponent router = new ComputerComponent(1000, "Router");
+                scenario.setBudget(scenario.getBudget() - router.getPrice());
+                label.setText(String.valueOf(scenario.getBudget()));
+                cart.add(router);
+            }
+        });
+        c.gridx = 2;
+        frame.add(button, c);
+
+        button = new JButton("Switch");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ComputerComponent switchComponent = new ComputerComponent(1000, "Switch");
+                scenario.setBudget(scenario.getBudget() - switchComponent.getPrice());
+                label.setText(String.valueOf(scenario.getBudget()));
+                cart.add(switchComponent);
+            }
+        });
+        c.gridx = 3;
+        frame.add(button, c);
+
+        label = new JLabel(String.valueOf(scenario.getBudget()));
+        c.gridx = 0;
+        c.gridy = 1;
+        frame.add(label, c);
+
+        button = new JButton("Checkout");
+        c.gridx = 3;
+        frame.add(button, c);
     }
 
     public void setLevelActive() {

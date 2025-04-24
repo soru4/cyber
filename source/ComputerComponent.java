@@ -1,23 +1,21 @@
 public class ComputerComponent {
-    public int id;
-    public double price;
+    public int price;
     public String type;
 
-    public ComputerComponent(double price, int id, String type) {
+    public ComputerComponent(int price, String type) {
         this.price = price;
-        this.id = id;
         this.type = type;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
     public String getType() {
         return type;
+    }
+
+    public String toString() {
+        return type + " ($" + price + ")";
     }
 }

@@ -34,6 +34,10 @@ public class Scenario {
         return workforceSize;
     }
 
+    public void setBudget(int budget) {
+        this.budget = budget;
+    }
+
     public String getSecurityLevel() {
         return securityString;
     }
