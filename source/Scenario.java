@@ -1,5 +1,5 @@
 
-public class ScenarioGeneration {
+public class Scenario {
 
     public String[] companyNames = { "AlphaTech", "BetaSecure", "GammaCorp", "DeltaNet", "EpsilonData",
             "ZetaGuard", "ThetaInfo", "IotaShield", "KappaSafe", "LambdaSecure",
@@ -11,7 +11,7 @@ public class ScenarioGeneration {
     public String currName;
     public String securityString;
 
-    public ScenarioGeneration() {
+    public Scenario() {
         // Constructor to initialize the scenario generation
         this.currName = companyNames[((int) (Math.random() * companyNames.length))];
         this.budget = (int) (Math.random() * 20000) + 2000;
