@@ -20,15 +20,17 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     public JButton button;
     public ArrayList<ComputerComponent> cart;
     public Point startPoint;
-    public final String[] COMPONENTS = {"Server", "Router", "Switch", "Computer"};
+    private final String[] COMPONENTS = {"Server", "Router", "Switch", "Computer"};
+    private Scenario scenario;
 
-    public Level1(JPanel x, Window w) {
-        this.cart = new ArrayList<ComputerComponent>();
+    public Level1() {
         init();
     }
 
     private void init() {
-        frame = new JFrame("Level Three");
+        this.cart = new ArrayList<ComputerComponent>();
+        this.scenario = new Scenario();
+        frame = new JFrame("Level One");
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new GridLayout(1, 4));
