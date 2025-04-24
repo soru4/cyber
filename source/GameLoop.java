@@ -1,7 +1,5 @@
 
-import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
-import java.awt.*;
+
 import java.util.*;
 
 public class GameLoop { // game loop is going to update the frame with all the new information at a
