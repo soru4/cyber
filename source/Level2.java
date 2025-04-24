@@ -1,17 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 
 public class Level2 implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
-    public JPanel panel;
-    public JLabel label;
-    public JLabel label2;
-    public JTextField textField;
-    public JButton button;
-    public JButton button2;
     Point startPoint;
+    private java.util.Stack<JLabel> wires = new Stack<JLabel>();
 
     public Level2() {
         init();
@@ -26,37 +22,44 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     private void init() {
         frame = new JFrame("Level One");
         frame.setSize(1920, 1080);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout(10, 10));
+        frame.setLocationRelativeTo(null);
 
-        panel = new JPanel(); // panel kinda like <View>.
-        label = new JLabel(""); // text i guess..
-        textField = new JTextField(20); // text input
-        button = new JButton("Save"); // button.
-        button2 = new JButton("Add New Label");
+        JPanel panel = new JPanel(); // panel kinda like <View>.
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-        panel.add(label);
-        panel.add(textField);
-        panel.add(button);
+        panel.setBackground(Color.GRAY);
+        
+        Button button2 = new Button("Add New Wire");
         panel.add(button2);
-        button.addActionListener((ActionEvent e) -> {
-            panel.add(new JLabel(textField.getText()));
-            updateFrame(frame);
-        });
+
+        Button button3 = new Button("Remove Last Wire");
+        panel.add(button3);
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setVisible(true);
         button2.addActionListener((ActionEvent e) -> {
-            // gameloop.__inst__.Instantiate(new movableComponent(new
-            // ImageIcon("assets/75519.png"), new Point(0,0)), 0);
-            ImageIcon imageIcon = new ImageIcon("assets/75519.png");
+            ImageIcon imageIcon = new ImageIcon("cyber/assets/75519.png");
             JLabel instanceLabel = new JLabel(imageIcon);
+            wires.add(instanceLabel);
             instanceLabel.setVisible(true);
             instanceLabel.addMouseListener(this);
             instanceLabel.addMouseMotionListener(this);
             panel.add(instanceLabel);
+            instanceLabel.setHorizontalAlignment(JLabel.CENTER);
+            instanceLabel.setVerticalAlignment(JLabel.CENTER);
             panel.revalidate();
             panel.repaint();
 
         });
-        frame.add(panel, BorderLayout.CENTER);
+
+        button3.addActionListener((ActionEvent e) -> {
+            JLabel instanceLabel = wires.pop();
+            panel.remove(instanceLabel);
+            panel.revalidate();
+            panel.repaint();
+        });
 
         updateFrame(frame);
     }
