@@ -46,7 +46,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         button2.addActionListener((ActionEvent e) -> {
             // gameloop.__inst__.Instantiate(new movableComponent(new
             // ImageIcon("assets/75519.png"), new Point(0,0)), 0);
-            ImageIcon imageIcon = new ImageIcon("assets/75519.png");
+            ImageIcon imageIcon = new ImageIcon("cyber/assets/75519.png");
             JLabel instanceLabel = new JLabel(imageIcon);
             instanceLabel.setVisible(true);
             instanceLabel.addMouseListener(this);

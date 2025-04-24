@@ -6,7 +6,7 @@ class Scene {
         GameLoop.__inst__.Instantiate(new TextCounter(), 0);
       //  GameLoop.__inst__.Instantiate(
               //  new MovableComponent(new ImageIcon("assets/75519.png"), MouseInfo.getPointerInfo().getLocation()), 0);
-         new Level2(); 
+         new Level3(); 
     }
     public void runLevel2(){
         //Level2 mainGameWindow = new Level2();
