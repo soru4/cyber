@@ -17,14 +17,16 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     public JPanel panel;
     public JLabel label;
     public JTextField textField;
-    public JButton button;
+    public JButton addComputer, addServer, addRouter, addSwitch, resetCart, checkout;
     public ArrayList<ComputerComponent> cart;
     public Point startPoint;
-    public Scenario scenario;
-    public final ComputerComponent COMPUTER = new ComputerComponent(1000, "Computer");
-    public final ComputerComponent SERVER = new ComputerComponent(2000, "Server");
-    public final ComputerComponent ROUTER = new ComputerComponent(1000, "Router");
-    public final ComputerComponent C_SWITCH = new ComputerComponent(1000, "Switch");
+    public final Scenario SCENARIO = new Scenario();
+    public int budget = SCENARIO.getBudget();
+    public final int I_BUDGET = SCENARIO.getBudget();
+    public final ComputerComponent COMPUTER = new ComputerComponent(1000, "Computer", 1);
+    public final ComputerComponent SERVER = new ComputerComponent(2000, "Server", 1);
+    public final ComputerComponent ROUTER = new ComputerComponent(1000, "Router", 5);
+    public final ComputerComponent C_SWITCH = new ComputerComponent(1000, "Switch", 20);
 
     public Level1() {
         init();
@@ -32,7 +34,6 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
 
     private void init() {
         this.cart = new ArrayList<ComputerComponent>();
-        this.scenario = new Scenario();
         frame = new JFrame("Level One");
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -44,70 +45,115 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
 
     private void addElements() {
         GridBagConstraints c = new GridBagConstraints();
-        button = new JButton("Computer");
-        button.addActionListener(new ActionListener() {
+        addComputer = new JButton(
+                String.format("Computer ($%d, 0 in cart)", COMPUTER.getPrice()));
+        addComputer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                scenario.setBudget(scenario.getBudget() - COMPUTER.getPrice());
-                label.setText(String.valueOf(scenario.getBudget()));
+                budget -= COMPUTER.getPrice();
+                label.setText(String.valueOf(budget));
                 cart.add(COMPUTER);
+                addComputer.setText(
+                        String.format("Computer ($%d, %d in cart)", COMPUTER.getPrice(),
+                                countComponents(COMPUTER.getType())));
             }
         });
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
         c.weightx = 0.5;
-        frame.add(button, c);
+        frame.add(addComputer, c);
 
-        button = new JButton("Server");
-        button.addActionListener(new ActionListener() {
+        addServer = new JButton(
+                String.format("Server ($%d, 0 in cart)", SERVER.getPrice()));
+        addServer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                scenario.setBudget(scenario.getBudget() - SERVER.getPrice());
-                label.setText(String.valueOf(scenario.getBudget()));
+                budget -= SERVER.getPrice();
+                label.setText(String.valueOf(budget));
                 cart.add(SERVER);
+                addServer.setText(
+                        String.format("Server ($%d, %d in cart)", SERVER.getPrice(),
+                                countComponents(SERVER.getType())));
             }
         });
         c.gridx = 1;
-        frame.add(button, c);
+        frame.add(addServer, c);
 
-        button = new JButton("Router");
-        button.addActionListener(new ActionListener() {
+        addRouter = new JButton(
+                String.format("Router ($%d, 0 in cart)", ROUTER.getPrice(), countComponents(ROUTER.getType())));
+        addRouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                scenario.setBudget(scenario.getBudget() - ROUTER.getPrice());
-                label.setText(String.valueOf(scenario.getBudget()));
+                budget -= ROUTER.getPrice();
+                label.setText(String.valueOf(budget));
                 cart.add(ROUTER);
+                addRouter.setText(
+                        String.format("Router ($%d, %d in cart)", ROUTER.getPrice(),
+                                countComponents(ROUTER.getType())));
             }
         });
         c.gridx = 2;
-        frame.add(button, c);
+        frame.add(addRouter, c);
 
-        button = new JButton("Switch");
-        button.addActionListener(new ActionListener() {
+        addSwitch = new JButton(
+                String.format("Switch ($%d, 0 in cart)", C_SWITCH.getPrice()));
+        addSwitch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                scenario.setBudget(scenario.getBudget() - C_SWITCH.getPrice());
-                label.setText(String.valueOf(scenario.getBudget()));
+                budget -= C_SWITCH.getPrice();
+                label.setText(String.valueOf(budget));
                 cart.add(C_SWITCH);
+                addSwitch.setText(
+                        String.format("Switch ($%d, %d in cart)", C_SWITCH.getPrice(),
+                                countComponents(C_SWITCH.getType())));
             }
         });
         c.gridx = 3;
-        frame.add(button, c);
+        frame.add(addSwitch, c);
 
-        label = new JLabel(String.valueOf(scenario.getBudget()));
+        label = new JLabel(String.valueOf(budget));
         c.gridx = 0;
         c.gridy = 1;
         frame.add(label, c);
 
-        button = new JButton("Checkout");
+        resetCart = new JButton("Reset");
+        resetCart.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cart.clear();
+                budget = I_BUDGET;
+                label.setText(String.valueOf(budget));
+                addComputer.setText(
+                        String.format("Computer ($%d, 0 in cart)", COMPUTER.getPrice()));
+                addServer.setText(
+                        String.format("Server ($%d, 0 in cart)", SERVER.getPrice()));
+                addRouter.setText(
+                        String.format("Router ($%d, 0 in cart)", ROUTER.getPrice()));
+                addSwitch.setText(
+                        String.format("Switch ($%d, 0 in cart)", C_SWITCH.getPrice()));
+            }
+        });
+        c.gridx = 2;
+        frame.add(resetCart, c);
+
+        checkout = new JButton("Checkout");
         c.gridx = 3;
-        frame.add(button, c);
+        frame.add(checkout, c);
     }
 
     public ArrayList<ComputerComponent> getCart() {
         return cart;
+    }
+
+    private int countComponents(String type) {
+        int count = 0;
+        for (ComputerComponent component : cart) {
+            if (component.getType().equals(type)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -129,7 +175,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     }
 
     public Scenario getScenario() {
-        return scenario;
+        return SCENARIO;
     }
 
     @Override
