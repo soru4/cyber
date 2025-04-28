@@ -25,8 +25,8 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     public final int I_BUDGET = SCENARIO.getBudget();
     public final ComputerComponent COMPUTER = new ComputerComponent(1000, "Computer", 1);
     public final ComputerComponent SERVER = new ComputerComponent(2000, "Server", 1);
-    public final ComputerComponent ROUTER = new ComputerComponent(1000, "Router", 5);
-    public final ComputerComponent C_SWITCH = new ComputerComponent(1000, "Switch", 20);
+    public final ComputerComponent ROUTER = new ComputerComponent(100, "Router", 5);
+    public final ComputerComponent C_SWITCH = new ComputerComponent(300, "Switch", 20);
 
     public Level1() {
         init();
