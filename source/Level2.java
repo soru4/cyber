@@ -20,7 +20,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     }
 
     private void init() {
-        frame = new JFrame("Level One");
+        frame = new JFrame("Level Two");
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout(10, 10));
