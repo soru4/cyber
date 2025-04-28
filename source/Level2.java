@@ -1,15 +1,19 @@
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 import java.util.*;
+import javax.swing.*;
 
 public class Level2 implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     Point startPoint;
     private java.util.Stack<JLabel> wires = new Stack<JLabel>();
+    //Replace components with arraylist from level1
+    private ArrayList<JLabel> components = new ArrayList<JLabel>();
+    ArrayList<ComputerComponent> cart;
 
-    public Level2() {
+    public Level2(ArrayList<ComputerComponent> cart) {
+        cart = this.cart;
         init();
     }
 
@@ -20,6 +24,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     }
 
     private void init() {
+        
+
         frame = new JFrame("Level Two");
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -29,7 +35,15 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         JPanel panel = new JPanel(); // panel kinda like <View>.
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-        panel.setBackground(Color.GRAY);
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridBagLayout());
+
+        panel2.setBackground(Color.GRAY);
+        frame.add(panel2, BorderLayout.CENTER);
+
+        populateComponentList(cart, panel2);
+
+        panel.setBackground(Color.YELLOW);
         
         Button button2 = new Button("Add New Wire");
         panel.add(button2);
@@ -37,31 +51,33 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         Button button3 = new Button("Remove Last Wire");
         panel.add(button3);
 
-        frame.add(panel, BorderLayout.CENTER);
+        frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
         button2.addActionListener((ActionEvent e) -> {
 
-            ImageIcon imageIcon = new ImageIcon("cyber/assets/75519.png");
+            ImageIcon imageIcon = new ImageIcon("cyber/assets/copperWire.png");
             JLabel instanceLabel = new JLabel(imageIcon);
             wires.add(instanceLabel);
             instanceLabel.setVisible(true);
             instanceLabel.addMouseListener(this);
             instanceLabel.addMouseMotionListener(this);
-            panel.add(instanceLabel);
+            panel2.add(instanceLabel);
             instanceLabel.setHorizontalAlignment(JLabel.CENTER);
             instanceLabel.setVerticalAlignment(JLabel.CENTER);
-            panel.revalidate();
-            panel.repaint();
+            panel2.revalidate();
+            panel2.repaint();
 
         });
 
         button3.addActionListener((ActionEvent e) -> {
             JLabel instanceLabel = wires.pop();
-            panel.remove(instanceLabel);
-            panel.revalidate();
-            panel.repaint();
+            panel2.remove(instanceLabel);
+            panel2.revalidate();
+            panel2.repaint();
         });
 
+
+        placeLevel1Components(panel2, components);
         updateFrame(frame);
     }
 
@@ -69,6 +85,57 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         j.setVisible(true);
     }
 
+    public void placeLevel1Components(JPanel p, ArrayList<JLabel> arr){
+        for(JLabel l: arr){
+            l.setVisible(true);
+            l.addMouseListener(this);
+            l.addMouseMotionListener(this);
+            p.add(l);
+        }
+    }
+
+    public void populateComponentList(ArrayList<ComputerComponent> cart, JPanel panel){
+        for(ComputerComponent c: cart){
+            if(c.getType().equals("Computer")){
+                ImageIcon imageIcon = new ImageIcon("cyber/assets/PC.png");
+                JLabel instanceLabel = new JLabel(imageIcon);
+                components.add(instanceLabel);
+                instanceLabel.setVisible(true);
+                instanceLabel.addMouseListener(this);
+                instanceLabel.addMouseMotionListener(this);
+                panel.add(instanceLabel);
+            }
+            else if(c.getType().equals("Server")){
+                ImageIcon imageIcon = new ImageIcon("cyber/assets/Server.png");
+                JLabel instanceLabel = new JLabel(imageIcon);
+                components.add(instanceLabel);
+                instanceLabel.setVisible(true);
+                instanceLabel.addMouseListener(this);
+                instanceLabel.addMouseMotionListener(this);
+                panel.add(instanceLabel);
+            }
+            else if(c.getType().equals("Router")){
+                ImageIcon imageIcon = new ImageIcon("cyber/assets/Router.png");
+                JLabel instanceLabel = new JLabel(imageIcon);
+                components.add(instanceLabel);
+                instanceLabel.setVisible(true);
+                instanceLabel.addMouseListener(this);
+                instanceLabel.addMouseMotionListener(this);
+                panel.add(instanceLabel);
+            }
+            else if(c.getType().equals("Switch")){
+                ImageIcon imageIcon = new ImageIcon("cyber/assets/Switch.png");
+                JLabel instanceLabel = new JLabel(imageIcon);
+                components.add(instanceLabel);
+                instanceLabel.setVisible(true);
+                instanceLabel.addMouseListener(this);
+                instanceLabel.addMouseMotionListener(this);
+                panel.add(instanceLabel);
+            }
+        }
+        panel.revalidate();
+        panel.repaint();
+    }
     @Override
     public void mouseClicked(MouseEvent e) {
 

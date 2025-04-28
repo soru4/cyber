@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class Level4 implements ActionListener, MouseListener, MouseMotionListener {
+public class Level5 implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;
@@ -20,15 +20,12 @@ public class Level4 implements ActionListener, MouseListener, MouseMotionListene
 
 
     
-    public Level4() {
+    public Level5() {
         questions.add(new QuestionList("Which layer of the TCP/IP model is responsible for ensuring packets are sent reliably and any missing packets are resent?", new String[] { "OSI", "network layer", "transport layer", "application" }, "transport layer"));
         questions.add(new QuestionList("Which type of applications are best suited to use UDP as the transport layer protocol?", new String[] { "low transport delay", "network layer", "transport layer", "high transport delay" }, "low transport delay"));
         questions.add(new QuestionList("Which of the following is not a valid TCP state?", new String[] { "SYN_SENT", "SYN_RECEIVED", "SYN_ACK", "ESTABLISHED" }, "SYN_ACK"));
         questions.add(new QuestionList("Which port number is used by HTTP?", new String[] { "Port 23", "Port 80", "Port 53", "Port 110" }, "Port 80"));
-        // questions.add(new QuestionList("aa", new String[] { "aaa", "aaa", "aaa", "aaa" }, "aaaa"));
-        // questions.add(new QuestionList("aa", new String[] { "aaa", "aaa", "aaa", "aaa" }, "aaaa"));
-        // questions.add(new QuestionList("aa", new String[] { "aaa", "aaa", "aaa", "aaa" }, "aaaa"));
-        // questions.add(new QuestionList("aa", new String[] { "aaa", "aaa", "aaa", "aaa" }, "aaaa"));
+
 
         init();
     }
@@ -40,14 +37,14 @@ public class Level4 implements ActionListener, MouseListener, MouseMotionListene
     }
 
     private void init() {
-        frame = new JFrame("Level Four");
+        frame = new JFrame("Level Five");
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(1, 1));
         
 
         JPanel topPanel = new JPanel(true);
-        JLabel topLabel = new JLabel("Level Four");
+        JLabel topLabel = new JLabel("Level Five");
         topLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
         topLabel.setForeground(Color.WHITE); // set the font color
         topPanel.add(topLabel);
@@ -75,7 +72,8 @@ public class Level4 implements ActionListener, MouseListener, MouseMotionListene
                         score++;
                         JOptionPane.showMessageDialog(frame, "Correct! Your score is: " + score);
                         if(score==3){
-                            new Level5(); // Assuming Level1 is the next level
+                            //new Level2(); // Assuming Level1 is the next level
+                            frame.dispose();
                         }
                     } else {
                         JOptionPane.showMessageDialog(frame, "Incorrect! Your score is: " + score);
