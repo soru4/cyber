@@ -29,7 +29,13 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         JPanel panel = new JPanel(); // panel kinda like <View>.
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-        panel.setBackground(Color.GRAY);
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridBagLayout());
+
+        panel2.setBackground(Color.GRAY);
+        frame.add(panel2, BorderLayout.CENTER);
+
+        panel.setBackground(Color.YELLOW);
         
         Button button2 = new Button("Add New Wire");
         panel.add(button2);
@@ -37,7 +43,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         Button button3 = new Button("Remove Last Wire");
         panel.add(button3);
 
-        frame.add(panel, BorderLayout.CENTER);
+        frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
         button2.addActionListener((ActionEvent e) -> {
 
@@ -47,19 +53,19 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
             instanceLabel.setVisible(true);
             instanceLabel.addMouseListener(this);
             instanceLabel.addMouseMotionListener(this);
-            panel.add(instanceLabel);
+            panel2.add(instanceLabel);
             instanceLabel.setHorizontalAlignment(JLabel.CENTER);
             instanceLabel.setVerticalAlignment(JLabel.CENTER);
-            panel.revalidate();
-            panel.repaint();
+            panel2.revalidate();
+            panel2.repaint();
 
         });
 
         button3.addActionListener((ActionEvent e) -> {
             JLabel instanceLabel = wires.pop();
-            panel.remove(instanceLabel);
-            panel.revalidate();
-            panel.repaint();
+            panel2.remove(instanceLabel);
+            panel2.revalidate();
+            panel2.repaint();
         });
 
         updateFrame(frame);
