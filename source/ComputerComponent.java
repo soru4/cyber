@@ -27,16 +27,25 @@ public class ComputerComponent {
         return type + " ($" + price + ")";
     }
 
-    public void addConnection(ComputerComponent component, JFrame frame) {
+    public boolean  addConnection(ComputerComponent component, JFrame frame) {
         if (conn.size() < ports) {
             conn.add(component);
             JOptionPane.showMessageDialog(frame, "Successful Connection between " + this.type + " and " + component.type);
+            return  true;
         } else {
             JOptionPane.showMessageDialog(frame, "The " + type +  " component you are trying to connect already has too many connections. ");
+            return false; 
         }
+       
     }
 
     public void removeConnection(ComputerComponent component) {
         conn.remove(component);
+    }
+
+    public void CheckConnection(){
+        if(type.equals("World")){
+            
+        }
     }
 }

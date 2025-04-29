@@ -1,13 +1,16 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Level2 implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     Point startPoint;
-    private java.util.Stack<JLabel> wires = new Stack<JLabel>();
+    private java.util.Stack<Connection> wires = new Stack<Connection>();
     //Replace components with arraylist from level1
     private ArrayList<JLabel> components = new ArrayList<JLabel>();
     ArrayList<ComputerComponent> pulledCart;
@@ -71,12 +74,20 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
             */
             if(recentlyClicked.size()==2){
                
-
-                ComputerComponent obj1 = recentlyClicked.poll().component;
-                ComputerComponent obj2 = recentlyClicked.poll().component;
+                ComponentHolder recentlyClicked1 = recentlyClicked.poll(); 
+                ComponentHolder recentlyClicked2 = recentlyClicked.poll();
+               
+                ComputerComponent obj1 = recentlyClicked1.component;
+                ComputerComponent obj2 = recentlyClicked2.component;
                 //connects first component to second. 
-                obj1.addConnection(obj2, frame);
-                recentlyClicked.clear();
+                if(obj1.addConnection(obj2, frame)){
+                    Connection x = new Connection(recentlyClicked1, recentlyClicked2);
+                    x.realizeConnection();
+                    wires.add(x);
+                    recentlyClicked.clear();
+                    frame.add(x.getWire());
+                }
+                
                 
             }else{
                 JOptionPane.showMessageDialog(frame, "Can't create a connection with current selection. ");
@@ -85,8 +96,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
         button3.addActionListener((ActionEvent e) -> { // removes the mostly recent wire connection
             if(wires.size() > 0){
-                JLabel instanceLabel = wires.pop();
-                panel2.remove(instanceLabel);
+                Connection instanceLabel = wires.pop();
+                panel2.remove(instanceLabel.getWire());
                 panel2.revalidate();
                 panel2.repaint();
             }
@@ -111,6 +122,16 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     }
 
     public void populateComponentList(ArrayList<ComputerComponent> cart, JPanel panel){
+
+        ComputerComponent world = new ComputerComponent(0, "World", 1);
+        ImageIcon imageIcon1 = new ImageIcon("assets/75519.png");
+        JLabel instanceLabel1 = new JLabel(imageIcon1);
+        holders.add(new ComponentHolder(world, instanceLabel1));
+        components.add(instanceLabel1);
+        instanceLabel1.setVisible(true);
+        instanceLabel1.addMouseListener(this);
+        instanceLabel1.addMouseMotionListener(this);
+        panel.add(instanceLabel1);
         for(ComputerComponent c: cart){
             if(c.getType().equals("Computer")){
                 
@@ -268,4 +289,44 @@ class ComponentHolder{
         this.label = l; 
     }
 
+}
+
+class Connection{
+    public ComponentHolder o1; 
+    public ComponentHolder o2; 
+    private JLabel wire; 
+
+    public Connection(ComponentHolder x, ComponentHolder y){
+        o1 = x;
+        o2 = y; 
+    }
+
+    public void realizeConnection(){
+        // creates a physical wire from one component to another; 
+        try {
+            
+       
+        BufferedImage bi = ImageIO.read(new File("assets/copperWire.jpg"));
+        wire = new JLabel(){
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(bi.getWidth(), bi.getHeight());
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                g2.rotate(Math.PI / 4, bi.getWidth() / 2, bi.getHeight() / 2);
+                g2.drawImage(bi, 0, 0, null);
+            }
+        };
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(wire, "Failed to make a wire image");
+    }
+    }
+
+    public JLabel getWire(){
+        return wire; 
+    }
 }
