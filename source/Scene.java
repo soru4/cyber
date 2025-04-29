@@ -8,6 +8,6 @@ class Scene {
               //  new MovableComponent(new ImageIcon("assets/75519.png"), MouseInfo.getPointerInfo().getLocation()), 0);
          //new Level4();
          //new Level2();
-         new Level5();
+         new Level1();
     }
 }

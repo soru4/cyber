@@ -10,10 +10,10 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     private java.util.Stack<JLabel> wires = new Stack<JLabel>();
     //Replace components with arraylist from level1
     private ArrayList<JLabel> components = new ArrayList<JLabel>();
-    ArrayList<ComputerComponent> cart;
+    ArrayList<ComputerComponent> pulledCart;
 
     public Level2(ArrayList<ComputerComponent> cart) {
-        cart = this.cart;
+        pulledCart = cart;
         init();
     }
 
@@ -36,12 +36,12 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
         JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridBagLayout());
+        panel2.setLayout(new FlowLayout());
 
         panel2.setBackground(Color.GRAY);
         frame.add(panel2, BorderLayout.CENTER);
 
-        populateComponentList(cart, panel2);
+        populateComponentList(pulledCart, panel2);
 
         panel.setBackground(Color.YELLOW);
         
@@ -70,10 +70,12 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         });
 
         button3.addActionListener((ActionEvent e) -> {
-            JLabel instanceLabel = wires.pop();
-            panel2.remove(instanceLabel);
-            panel2.revalidate();
-            panel2.repaint();
+            if(wires.size() > 0){
+                JLabel instanceLabel = wires.pop();
+                panel2.remove(instanceLabel);
+                panel2.revalidate();
+                panel2.repaint();
+            }
         });
 
 

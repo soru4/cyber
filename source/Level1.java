@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import java.awt.*;
+import java.awt.Desktop.Action;
 import java.awt.event.*;
 
 public class Level1 implements ActionListener, MouseListener, MouseMotionListener {
@@ -138,8 +139,16 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
         frame.add(resetCart, c);
 
         checkout = new JButton("Checkout");
+        
         c.gridx = 3;
         frame.add(checkout, c);
+        checkout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Level2(cart);
+                frame.dispose();
+            }
+        });
     }
 
     public ArrayList<ComputerComponent> getCart() {
