@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ComputerComponent {
     public int price;
@@ -25,11 +27,12 @@ public class ComputerComponent {
         return type + " ($" + price + ")";
     }
 
-    public void addConnection(ComputerComponent component) {
+    public void addConnection(ComputerComponent component, JFrame frame) {
         if (conn.size() < ports) {
             conn.add(component);
+            JOptionPane.showMessageDialog(frame, "Successful Connection between " + this.type + " and " + component.type);
         } else {
-            System.out.println("No more ports available for " + type);
+            JOptionPane.showMessageDialog(frame, "The " + type +  " component you are trying to connect already has too many connections. ");
         }
     }
 

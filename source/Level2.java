@@ -11,6 +11,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     //Replace components with arraylist from level1
     private ArrayList<JLabel> components = new ArrayList<JLabel>();
     ArrayList<ComputerComponent> pulledCart;
+    public ArrayList<ComponentHolder> holders = new ArrayList<ComponentHolder>();
+    public Queue<ComponentHolder> recentlyClicked = new LinkedList<ComponentHolder>();
 
     public Level2(ArrayList<ComputerComponent> cart) {
         pulledCart = cart;
@@ -54,8 +56,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
         button2.addActionListener((ActionEvent e) -> { // on button press it creates a wire image currently. 
-
-            ImageIcon imageIcon = new ImageIcon("cyber/assets/copperWire.png");
+            /* 
+            ImageIcon imageIcon = new ImageIcon("assets/copperWire.png");
             JLabel instanceLabel = new JLabel(imageIcon);
             wires.add(instanceLabel);
             instanceLabel.setVisible(true);
@@ -66,7 +68,19 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
             instanceLabel.setVerticalAlignment(JLabel.CENTER);
             panel2.revalidate();
             panel2.repaint();
+            */
+            if(recentlyClicked.size()==2){
+               
 
+                ComputerComponent obj1 = recentlyClicked.poll().component;
+                ComputerComponent obj2 = recentlyClicked.poll().component;
+                //connects first component to second. 
+                obj1.addConnection(obj2, frame);
+                recentlyClicked.clear();
+                
+            }else{
+                JOptionPane.showMessageDialog(frame, "Can't create a connection with current selection. ");
+            }
         });
 
         button3.addActionListener((ActionEvent e) -> { // removes the mostly recent wire connection
@@ -99,8 +113,10 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public void populateComponentList(ArrayList<ComputerComponent> cart, JPanel panel){
         for(ComputerComponent c: cart){
             if(c.getType().equals("Computer")){
-                ImageIcon imageIcon = new ImageIcon("cyber/assets/PC.png");
+                
+                ImageIcon imageIcon = new ImageIcon("assets/PC.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
+                holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
                 instanceLabel.setVisible(true);
                 instanceLabel.addMouseListener(this);
@@ -108,8 +124,9 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 panel.add(instanceLabel);
             }
             else if(c.getType().equals("Server")){
-                ImageIcon imageIcon = new ImageIcon("cyber/assets/Server.png");
+                ImageIcon imageIcon = new ImageIcon("assets/Server.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
+                holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
                 instanceLabel.setVisible(true);
                 instanceLabel.addMouseListener(this);
@@ -117,8 +134,9 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 panel.add(instanceLabel);
             }
             else if(c.getType().equals("Router")){
-                ImageIcon imageIcon = new ImageIcon("cyber/assets/Router.png");
+                ImageIcon imageIcon = new ImageIcon("assets/Router.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
+                holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
                 instanceLabel.setVisible(true);
                 instanceLabel.addMouseListener(this);
@@ -126,8 +144,9 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 panel.add(instanceLabel);
             }
             else if(c.getType().equals("Switch")){
-                ImageIcon imageIcon = new ImageIcon("cyber/assets/Switch.png");
+                ImageIcon imageIcon = new ImageIcon("assets/Switch.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
+                holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
                 instanceLabel.setVisible(true);
                 instanceLabel.addMouseListener(this);
@@ -147,6 +166,52 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public void mousePressed(MouseEvent e) {
         JLabel touched = (JLabel) (e.getComponent());
         startPoint = SwingUtilities.convertPoint(touched, e.getPoint(), touched.getParent());
+        if(recentlyClicked.size()< 3 && SwingUtilities.isLeftMouseButton(e)){
+            for(ComponentHolder x: holders){
+                if(x.label == (JLabel) (e.getComponent())){
+                    boolean doesContain = false;
+                    for(ComponentHolder y : recentlyClicked)
+                        if(y == x)
+                            doesContain = true; 
+                    if(!doesContain)
+                        recentlyClicked.add(x);
+                }
+            }
+            
+        }
+        else if(SwingUtilities.isRightMouseButton(e) || e.isPopupTrigger()){
+            JPopupMenu popupMenu = null;
+            for(ComponentHolder x: holders){
+
+                if(x.label == (JLabel) (e.getComponent())){
+                      popupMenu = createPopupMenu(x.component);
+                }
+            }
+            popupMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
+        else{
+            JOptionPane.showMessageDialog(frame, "Clicking on too many components at once. Resetting clicked");
+            recentlyClicked.clear();
+        }
+
+      
+
+    }
+
+    private JPopupMenu createPopupMenu(ComputerComponent x) {
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        JMenuItem item2 = new JMenuItem(x.type);
+        JMenuItem item1 = new JMenuItem("Current Connections Number: " + x.conn.size());
+        popupMenu.add(item2);
+        popupMenu.add(item1);
+        for(ComputerComponent y : x.conn){
+            JMenuItem xJMenuItem = new JMenuItem("Connected to " + y.type);
+            popupMenu.add(xJMenuItem);
+        }
+ 
+        
+        return popupMenu;
     }
 
     @Override
@@ -190,6 +255,17 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
         // throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
+    }
+
+}
+
+class ComponentHolder{
+    public ComputerComponent component; 
+    public JLabel label; 
+
+    public ComponentHolder ( ComputerComponent c, JLabel l){
+        this.component = c;
+        this.label = l; 
     }
 
 }

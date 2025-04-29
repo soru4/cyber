@@ -25,7 +25,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     public int budget = SCENARIO.getBudget();
     public final int I_BUDGET = SCENARIO.getBudget();
     public final ComputerComponent COMPUTER = new ComputerComponent(1000, "Computer", 1);
-    public final ComputerComponent SERVER = new ComputerComponent(2000, "Server", 1);
+    public final ComputerComponent SERVER = new ComputerComponent(2000, "Server", 2);
     public final ComputerComponent ROUTER = new ComputerComponent(100, "Router", 5);
     public final ComputerComponent C_SWITCH = new ComputerComponent(300, "Switch", 20);
 
@@ -53,7 +53,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
             public void actionPerformed(ActionEvent e) {
                 budget -= COMPUTER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(COMPUTER);
+                cart.add(new ComputerComponent(1000, "Computer", 1));
                 addComputer.setText(
                         String.format("Computer ($%d, %d in cart)", COMPUTER.getPrice(),
                                 countComponents(COMPUTER.getType())));
@@ -72,7 +72,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
             public void actionPerformed(ActionEvent e) {
                 budget -= SERVER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(SERVER);
+                cart.add(new ComputerComponent(2000, "Server", 2));
                 addServer.setText(
                         String.format("Server ($%d, %d in cart)", SERVER.getPrice(),
                                 countComponents(SERVER.getType())));
@@ -88,7 +88,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
             public void actionPerformed(ActionEvent e) {
                 budget -= ROUTER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(ROUTER);
+                cart.add(new ComputerComponent(100, "Router", 5));
                 addRouter.setText(
                         String.format("Router ($%d, %d in cart)", ROUTER.getPrice(),
                                 countComponents(ROUTER.getType())));
@@ -104,7 +104,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
             public void actionPerformed(ActionEvent e) {
                 budget -= C_SWITCH.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(C_SWITCH);
+                cart.add(new ComputerComponent(300, "Switch", 20));
                 addSwitch.setText(
                         String.format("Switch ($%d, %d in cart)", C_SWITCH.getPrice(),
                                 countComponents(C_SWITCH.getType())));
