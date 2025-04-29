@@ -53,7 +53,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
-        button2.addActionListener((ActionEvent e) -> {
+        button2.addActionListener((ActionEvent e) -> { // on button press it creates a wire image currently. 
 
             ImageIcon imageIcon = new ImageIcon("cyber/assets/copperWire.png");
             JLabel instanceLabel = new JLabel(imageIcon);
@@ -69,7 +69,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
         });
 
-        button3.addActionListener((ActionEvent e) -> {
+        button3.addActionListener((ActionEvent e) -> { // removes the mostly recent wire connection
             if(wires.size() > 0){
                 JLabel instanceLabel = wires.pop();
                 panel2.remove(instanceLabel);
