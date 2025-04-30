@@ -144,7 +144,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         world = new ComputerComponent(0, "World", 1);
         ImageIcon imageIcon1 = new ImageIcon("cyber/assets/75519.png");
         JLabel instanceLabel1 = new JLabel(imageIcon1);
-        holders.add(new ComponentHolder(world, instanceLabel1));
+        holders.add(new ComponentHolder(world, instanceLabel1));//world MAKE BRANDON
         components.add(instanceLabel1);
         instanceLabel1.setVisible(true);
         instanceLabel1.addMouseListener(this);
