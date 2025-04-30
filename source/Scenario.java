@@ -14,7 +14,7 @@ public class Scenario {
     public Scenario() {
         // Constructor to initialize the scenario generation
         this.currName = companyNames[((int) (Math.random() * companyNames.length))];
-        this.budget = (int) (Math.random() * 20000) + 2000;
+        this.budget = (int) (Math.random() * 20000) + 2000; //FIXME: The game is sometimes impossible due to large workforces and small budgets.
         this.workforceSize = (int) (Math.random() * 100) + 10;
         this.securityString = securityLevel[(int) (Math.random() * securityLevel.length)];
     }

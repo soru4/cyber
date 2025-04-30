@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
@@ -41,7 +42,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
         JPanel panel2 = new JPanel();
-        panel2.setLayout(new FlowLayout());
+        panel2.setLayout(null);
 
         panel2.setBackground(Color.GRAY);
         frame.add(panel2, BorderLayout.CENTER);
@@ -95,9 +96,14 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 if(obj1.addConnection(obj2, frame)){
                     Connection x = new Connection(recentlyClicked1, recentlyClicked2);
                     x.realizeConnection();
+                    ImageIcon imageIcon = new ImageIcon("assets/transformedFile.png");
+                    JLabel instanceLabel = new JLabel(imageIcon);
+                    panel2.add(instanceLabel);
                     wires.add(x);
                     recentlyClicked.clear();
                     frame.add(x.getWire());
+                    panel2.revalidate();
+                    panel2.repaint();
                 }
                 
                 
@@ -155,6 +161,10 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 instanceLabel.addMouseListener(this);
                 instanceLabel.addMouseMotionListener(this);
                 panel.add(instanceLabel);
+                
+                Insets insets = panel.getInsets();
+                Dimension size = instanceLabel.getPreferredSize();
+                instanceLabel.setBounds(25+insets.left, 5+insets.top,size.width,size.height);
             }
             else if(c.getType().equals("Server")){
                 ImageIcon imageIcon = new ImageIcon("cyber/assets/Server.png");
@@ -165,6 +175,10 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 instanceLabel.addMouseListener(this);
                 instanceLabel.addMouseMotionListener(this);
                 panel.add(instanceLabel);
+                
+                Insets insets = panel.getInsets();
+                Dimension size = instanceLabel.getPreferredSize();
+                instanceLabel.setBounds(25+insets.left, 5+insets.top,size.width,size.height);
             }
             else if(c.getType().equals("Router")){
                 ImageIcon imageIcon = new ImageIcon("cyber/assets/Router.png");
@@ -175,6 +189,10 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 instanceLabel.addMouseListener(this);
                 instanceLabel.addMouseMotionListener(this);
                 panel.add(instanceLabel);
+                
+                Insets insets = panel.getInsets();
+                Dimension size = instanceLabel.getPreferredSize();
+                instanceLabel.setBounds(25+insets.left, 5+insets.top,size.width,size.height);
             }
             else if(c.getType().equals("Switch")){
                 ImageIcon imageIcon = new ImageIcon("cyber/assets/Switch.png");
@@ -185,6 +203,10 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 instanceLabel.addMouseListener(this);
                 instanceLabel.addMouseMotionListener(this);
                 panel.add(instanceLabel);
+                
+                Insets insets = panel.getInsets();
+                Dimension size = instanceLabel.getPreferredSize();
+                instanceLabel.setBounds(25+insets.left, 5+insets.top,size.width,size.height);
             }
         }
         panel.revalidate();
@@ -301,40 +323,59 @@ class ComponentHolder{
         this.label = l; 
     }
 
+    public ComputerComponent getComponent() {
+        return component;
+    }
+
+    public JLabel getLabel() {
+        return label;
+    }
+    
+
 }
 
 class Connection{
-    public ComponentHolder o1; 
-    public ComponentHolder o2; 
+    public ComponentHolder object1; 
+    public ComponentHolder object2; 
     private JLabel wire; 
 
-    public Connection(ComponentHolder x, ComponentHolder y){
-        o1 = x;
-        o2 = y; 
+    public Connection(ComponentHolder o1, ComponentHolder o2){
+        object1 = o1;
+        object2 = o2; 
     }
 
     public void realizeConnection(){
+        int x1 = object1.getLabel().getX();
+        int x2 = object1.getLabel().getX();
+        int y1 = object1.getLabel().getX();
+        int y2 = object1.getLabel().getX();
+
+        int newWidth = (int)Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1,2));
+        int newHeight = wire.getHeight();
         // creates a physical wire from one component to another; 
         try {
-            
-       
-        BufferedImage bi = ImageIO.read(new File("cyber/assets/copperWire.jpg"));
-        wire = new JLabel(){
-            @Override
-            public Dimension getPreferredSize() {
-                return new Dimension(bi.getWidth(), bi.getHeight());
-            }
+        BufferedImage bi = ImageIO.read(new File("assets/copperWire.png"));
+        System.out.println(bi.toString());
+        BufferedImage stretechedImage = new BufferedImage(newWidth, newHeight, bi.getType());
+        Graphics2D g2d = stretechedImage.createGraphics();
+        double angle = Math.atan2(y2-y1, x2-x1);
+        System.out.println(angle);
+        AffineTransform transform = new AffineTransform();
+        transform.translate(newWidth / 2.0, newHeight / 2.0);
+        transform.rotate(angle);
+        transform.scale((double) newWidth / bi.getWidth(), 1);
+        transform.translate(-bi.getWidth() / 2.0, -bi.getHeight() / 2.0);
 
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D) g;
-                g2.rotate(Math.PI / 4, bi.getWidth() / 2, bi.getHeight() / 2);
-                g2.drawImage(bi, 0, 0, null);
-            }
-        };
+        g2d.transform(transform);
+        g2d.drawImage(bi, 0, 0, null);
+        System.out.println(g2d.toString());
+        g2d.dispose();
+        
+        ImageIO.write(stretechedImage, "png", new File("assets/transformedFile.png"));
+
+
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(wire, "Failed to make a wire image");
+        JOptionPane.showMessageDialog(wire, "Failed to make a wire image" + e);
     }
     }
 
