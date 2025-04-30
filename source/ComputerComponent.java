@@ -43,9 +43,71 @@ public class ComputerComponent {
         conn.remove(component);
     }
 
-    public void CheckConnection(){
+    public boolean  CheckConnection(){
         if(type.equals("World")){
-            
+            return isValidConnection(this);
         }
+        return false; 
     }
+    /*
+     * acceptable connection types
+     * 1. World to Router
+     * 2. Router to Switch
+     * 3. Switch to Computer
+     * 4. Switch to Server
+     * 5. Server to Switch
+     * 6. Server to Router
+     * 7. Router to Server
+     * 
+     */
+    // recursive method to see if the component have the acceptable connection types.
+    public boolean  isValidConnection(ComputerComponent component ) {
+        
+   
+       /*
+        * 
+        */
+        if(component.conn.isEmpty()){
+            return true;
+        }
+        for( ComputerComponent c : component.conn){
+           switch(component.type){
+            case "World":
+                if(c.type.equals("Router") || c.type.equals("Switch")){
+                    return true && isValidConnection(c);
+                }
+                else{
+                    return false;
+                }
+            case "Router":
+                if(c.type.equals("Switch") || c.type.equals("Server")){
+                    return true  && isValidConnection(c);
+                }
+                else{
+                    return false;
+                }
+                
+            case "Switch":
+                if(c.type.equals("Computer") || c.type.equals("Server")){
+                    return true  && isValidConnection(c);
+                }
+                else{
+                    return false;
+                }
+            case "Server":
+                if(c.type.equals("Switch") || c.type.equals("Router") || c.type.equals("Computer")){
+                    return true  && isValidConnection(c);
+                }
+                else{
+                    return false;
+                }
+            
+            default:
+                return false ;
+           }
+        }
+        return false;
+    } 
+
+   
 }

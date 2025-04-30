@@ -16,7 +16,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     ArrayList<ComputerComponent> pulledCart;
     public ArrayList<ComponentHolder> holders = new ArrayList<ComponentHolder>();
     public Queue<ComponentHolder> recentlyClicked = new LinkedList<ComponentHolder>();
-
+    public ComputerComponent world;
     public Level2(ArrayList<ComputerComponent> cart) {
         pulledCart = cart;
         init();
@@ -55,6 +55,18 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
         Button button3 = new Button("Remove Last Wire");
         panel.add(button3);
+
+        Button button4 = new Button("Check Connections");
+        button4.addActionListener((ActionEvent e) -> {
+            if(world.CheckConnection()){
+                JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
+            }else{
+                JOptionPane.showMessageDialog(frame, "You have one or more invalid connections in your world. Please check your connections and try again! You are bad!");
+            }
+
+
+        });
+        panel.add(button4);
 
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
@@ -123,8 +135,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
     public void populateComponentList(ArrayList<ComputerComponent> cart, JPanel panel){
 
-        ComputerComponent world = new ComputerComponent(0, "World", 1);
-        ImageIcon imageIcon1 = new ImageIcon("assets/75519.png");
+        world = new ComputerComponent(0, "World", 1);
+        ImageIcon imageIcon1 = new ImageIcon("cyber/assets/75519.png");
         JLabel instanceLabel1 = new JLabel(imageIcon1);
         holders.add(new ComponentHolder(world, instanceLabel1));
         components.add(instanceLabel1);
@@ -135,7 +147,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         for(ComputerComponent c: cart){
             if(c.getType().equals("Computer")){
                 
-                ImageIcon imageIcon = new ImageIcon("assets/PC.png");
+                ImageIcon imageIcon = new ImageIcon("cyber/assets/PC.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -145,7 +157,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 panel.add(instanceLabel);
             }
             else if(c.getType().equals("Server")){
-                ImageIcon imageIcon = new ImageIcon("assets/Server.png");
+                ImageIcon imageIcon = new ImageIcon("cyber/assets/Server.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -155,7 +167,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 panel.add(instanceLabel);
             }
             else if(c.getType().equals("Router")){
-                ImageIcon imageIcon = new ImageIcon("assets/Router.png");
+                ImageIcon imageIcon = new ImageIcon("cyber/assets/Router.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -165,7 +177,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 panel.add(instanceLabel);
             }
             else if(c.getType().equals("Switch")){
-                ImageIcon imageIcon = new ImageIcon("assets/Switch.png");
+                ImageIcon imageIcon = new ImageIcon("cyber/assets/Switch.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -306,7 +318,7 @@ class Connection{
         try {
             
        
-        BufferedImage bi = ImageIO.read(new File("assets/copperWire.jpg"));
+        BufferedImage bi = ImageIO.read(new File("cyber/assets/copperWire.jpg"));
         wire = new JLabel(){
             @Override
             public Dimension getPreferredSize() {
