@@ -22,8 +22,8 @@ public class Scenario {
     // Method to generate a random scenario
     public String getScenario() {
         return String.format(
-                "Hello, engineer! I'm a representative from %s and I need your help! %s needs YOU to build a network to our specifications! Our company needs a %s for our workforce of %d. Our company is willing to give you a maximum, non-negotiable budget of %d ! I hope to see this network working soon!",
-                currName, currName, securityString, workforceSize, budget);
+                "<html>Hello, engineer! I'm a representative from %s and I need your help!<br>We need YOU to build a %s network to support our workforce of %d people.<br>We are willing to give you a maximum, non-negotiable budget of $%d!<br>I hope to see this network working soon!</html>",
+                currName, securityString, workforceSize, budget);
     }
 
     public int getBudget() {
