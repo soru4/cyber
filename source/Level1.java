@@ -3,13 +3,13 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import java.awt.*;
-import java.awt.Desktop.Action;
 import java.awt.event.*;
 
 public class Level1 implements ActionListener, MouseListener, MouseMotionListener {
@@ -21,15 +21,17 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     public JButton addComputer, addServer, addRouter, addSwitch, resetCart, checkout;
     public ArrayList<ComputerComponent> cart;
     public Point startPoint;
-    public final Scenario SCENARIO = new Scenario();
-    public int budget = SCENARIO.getBudget();
-    public final int I_BUDGET = SCENARIO.getBudget();
+    public Scenario scenario;
+    public int budget;
+    public final int I_BUDGET = scenario.getBudget();
     public final ComputerComponent COMPUTER = new ComputerComponent(1000, "Computer", 1);
     public final ComputerComponent SERVER = new ComputerComponent(2000, "Server", 2);
     public final ComputerComponent ROUTER = new ComputerComponent(100, "Router", 5);
     public final ComputerComponent C_SWITCH = new ComputerComponent(300, "Switch", 20);
 
-    public Level1() {
+    public Level1(Scenario s) {
+        scenario = s;
+        budget = scenario.getBudget();
         init();
     }
 
@@ -145,8 +147,12 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
         checkout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Level2(cart);
-                frame.dispose();
+                if (cart.size() >= 1 && budget >= 0) {
+                    new Level2(cart);
+                    frame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Empty cart or over budget");
+                }
             }
         });
     }
@@ -184,7 +190,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
     }
 
     public Scenario getScenario() {
-        return SCENARIO;
+        return scenario;
     }
 
     @Override
