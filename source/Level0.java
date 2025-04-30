@@ -15,7 +15,7 @@ public class Level0 implements ActionListener, MouseListener, MouseMotionListene
     public JLabel label;
     public JButton button;
     public Point startPoint;
-    public final Scenario SCENARIO = new Scenario();
+    public Scenario scenario = new Scenario();
 
     public Level0() {
         init();
@@ -32,13 +32,13 @@ public class Level0 implements ActionListener, MouseListener, MouseMotionListene
     }
 
     private void addElements() {
-        label = new JLabel(SCENARIO.getScenario());
+        label = new JLabel(scenario.getScenario());
         frame.add(label);
         button = new JButton("Continue");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Level1(SCENARIO);
+                new Level1(scenario);
                 frame.dispose();
             }
         });
