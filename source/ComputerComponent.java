@@ -24,7 +24,7 @@ public class ComputerComponent {
     }
 
     public String toString() {
-        return type + " ($" + price + ")";
+        return type + " ($" + price + ", " + ports + "ports)";
     }
 
     public boolean  addConnection(ComputerComponent component, JFrame frame) {
