@@ -72,19 +72,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
         button2.addActionListener((ActionEvent e) -> { // on button press it creates a wire image currently. 
-            /* 
-            ImageIcon imageIcon = new ImageIcon("assets/copperWire.png");
-            JLabel instanceLabel = new JLabel(imageIcon);
-            wires.add(instanceLabel);
-            instanceLabel.setVisible(true);
-            instanceLabel.addMouseListener(this);
-            instanceLabel.addMouseMotionListener(this);
-            panel2.add(instanceLabel);
-            instanceLabel.setHorizontalAlignment(JLabel.CENTER);
-            instanceLabel.setVerticalAlignment(JLabel.CENTER);
-            panel2.revalidate();
-            panel2.repaint();
-            */
+
             if(recentlyClicked.size()==2){
                
                 ComponentHolder recentlyClicked1 = recentlyClicked.poll(); 
@@ -144,8 +132,11 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         world = new ComputerComponent(0, "World", 1);
         ImageIcon imageIcon1 = new ImageIcon("cyber/assets/75519.png");
         JLabel instanceLabel1 = new JLabel(imageIcon1);
-        holders.add(new ComponentHolder(world, instanceLabel1));//world MAKE BRANDON
+        holders.add(new ComponentHolder(world, instanceLabel1));
         components.add(instanceLabel1);
+        Insets insets1 = panel.getInsets();
+        Dimension size1 = instanceLabel1.getPreferredSize();
+        instanceLabel1.setBounds(25+insets1.left, 5+insets1.top,size1.width,size1.height);
         instanceLabel1.setVisible(true);
         instanceLabel1.addMouseListener(this);
         instanceLabel1.addMouseMotionListener(this);
