@@ -18,6 +18,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public ArrayList<ComponentHolder> holders = new ArrayList<ComponentHolder>();
     public Queue<ComponentHolder> recentlyClicked = new LinkedList<ComponentHolder>();
     public ComputerComponent world;
+    public boolean isPlaceMode = false; 
+    public static int numOfWires = 0 ; 
     public Level2(ArrayList<ComputerComponent> cart) {
         pulledCart = cart;
         init();
@@ -37,6 +39,20 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLayout(new BorderLayout(10, 10));
         frame.setLocationRelativeTo(null);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                for(int i = 0; i <=numOfWires; i++){
+                    File myObj = new File("assets/transformedFile"+i+".png"); 
+                    if (myObj.delete()) { 
+                      System.out.println("Deleted the file: " + myObj.getName());
+                    } else {
+                      System.out.println("Failed to delete the file.");
+                    } 
+                }
+                System.exit(0);
+            }
+        });
 
         JPanel panel = new JPanel(); // panel kinda like <View>.
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
@@ -67,7 +83,15 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
 
         });
+
+        Button button5 = new Button("Turn on Build Mode");
+        button5.addActionListener((ActionEvent e) -> {
+           isPlaceMode = !isPlaceMode; 
+            button5.setLabel(isPlaceMode ? "Turn off Build Mode" : "Turn on Build Mode");
+
+        });
         panel.add(button4);
+        panel.add(button5);
 
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
@@ -83,15 +107,22 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 //connects first component to second. 
                 if(obj1.addConnection(obj2, frame)){
                     Connection x = new Connection(recentlyClicked1, recentlyClicked2);
-                    x.realizeConnection();
-                    ImageIcon imageIcon = new ImageIcon("assets/transformedFile.png");
+                    x.realizeConnection(panel);
+                    ImageIcon imageIcon = new ImageIcon("assets/transformedFile" + numOfWires + ".png");
                     JLabel instanceLabel = new JLabel(imageIcon);
+                    numOfWires++;
                     panel2.add(instanceLabel);
+
+                    Insets insets = panel2.getInsets();
+                    Dimension size = instanceLabel.getPreferredSize();
+                    instanceLabel.setBounds((int)((recentlyClicked1.label.getX() -recentlyClicked1.label.getWidth() /2)) , (int)(( recentlyClicked1.label.getY() +recentlyClicked1.label.getHeight() /2 )) ,size.width,size.height); // idk how this works fix brandon
+                    System.out.println("X: " +(int)((recentlyClicked1.label.getX() - recentlyClicked1.label.getWidth())));
+                    System.out.println("Y: " +(int)((recentlyClicked1.label.getY() + recentlyClicked1.label.getHeight() )));
                     wires.add(x);
                     recentlyClicked.clear();
                     frame.add(x.getWire());
-                    panel2.revalidate();
-                    panel2.repaint();
+                    panel.revalidate();
+                    panel.repaint();
                 }
                 
                 
@@ -104,6 +135,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
             if(wires.size() > 0){
                 Connection instanceLabel = wires.pop();
                 panel2.remove(instanceLabel.getWire());
+                instanceLabel.object1.component.removeConnection(instanceLabel.object2.component);
                 panel2.revalidate();
                 panel2.repaint();
             }
@@ -130,7 +162,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public void populateComponentList(ArrayList<ComputerComponent> cart, JPanel panel){
 
         world = new ComputerComponent(0, "World", 1);
-        ImageIcon imageIcon1 = new ImageIcon("cyber/assets/75519.png");
+        ImageIcon imageIcon1 = new ImageIcon("assets/75519.png");
         JLabel instanceLabel1 = new JLabel(imageIcon1);
         holders.add(new ComponentHolder(world, instanceLabel1));
         components.add(instanceLabel1);
@@ -144,7 +176,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         for(ComputerComponent c: cart){
             if(c.getType().equals("Computer")){
                 
-                ImageIcon imageIcon = new ImageIcon("cyber/assets/PC.png");
+                ImageIcon imageIcon = new ImageIcon("assets/PC.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -158,7 +190,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 instanceLabel.setBounds(25+insets.left, 5+insets.top,size.width,size.height);
             }
             else if(c.getType().equals("Server")){
-                ImageIcon imageIcon = new ImageIcon("cyber/assets/Server.png");
+                ImageIcon imageIcon = new ImageIcon("assets/Server.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -172,7 +204,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 instanceLabel.setBounds(25+insets.left, 5+insets.top,size.width,size.height);
             }
             else if(c.getType().equals("Router")){
-                ImageIcon imageIcon = new ImageIcon("cyber/assets/Router.png");
+                ImageIcon imageIcon = new ImageIcon("assets/Router.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -186,7 +218,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 instanceLabel.setBounds(25+insets.left, 5+insets.top,size.width,size.height);
             }
             else if(c.getType().equals("Switch")){
-                ImageIcon imageIcon = new ImageIcon("cyber/assets/Switch.png");
+                ImageIcon imageIcon = new ImageIcon("assets/Switch.png");
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -212,7 +244,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public void mousePressed(MouseEvent e) {
         JLabel touched = (JLabel) (e.getComponent());
         startPoint = SwingUtilities.convertPoint(touched, e.getPoint(), touched.getParent());
-        if(recentlyClicked.size()< 3 && SwingUtilities.isLeftMouseButton(e)){
+        if(recentlyClicked.size()< 3 && SwingUtilities.isLeftMouseButton(e) && isPlaceMode){
             for(ComponentHolder x: holders){
                 if(x.label == (JLabel) (e.getComponent())){
                     boolean doesContain = false;
@@ -234,6 +266,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 }
             }
             popupMenu.show(e.getComponent(), e.getX(), e.getY());
+        }else if(!isPlaceMode){
+
         }
         else{
             JOptionPane.showMessageDialog(frame, "Clicking on too many components at once. Resetting clicked");
@@ -310,6 +344,7 @@ class ComponentHolder{
     public JLabel label; 
 
     public ComponentHolder ( ComputerComponent c, JLabel l){
+       
         this.component = c;
         this.label = l; 
     }
@@ -335,38 +370,43 @@ class Connection{
         object2 = o2; 
     }
 
-    public void realizeConnection(){
+    public void realizeConnection(JPanel x){
+        wire = new JLabel(new ImageIcon("assets/redWire.png"));
+        Insets insets1 = x.getInsets();
+        Dimension size1 = wire.getPreferredSize();
+        wire.setBounds(25+insets1.left, 5+insets1.top,size1.width,size1.height);
+
         int x1 = object1.getLabel().getX();
-        int x2 = object1.getLabel().getX();
-        int y1 = object1.getLabel().getX();
-        int y2 = object1.getLabel().getX();
+        int x2 = object2.getLabel().getX();
+        int y1 = object1.getLabel().getY();
+        int y2 = object2.getLabel().getY();
 
         int newWidth = (int)Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1,2));
         int newHeight = wire.getHeight();
         // creates a physical wire from one component to another; 
         try {
-        BufferedImage bi = ImageIO.read(new File("assets/copperWire.png"));
+        BufferedImage bi = ImageIO.read(new File("assets/redWire.png"));
         System.out.println(bi.toString());
-        BufferedImage stretechedImage = new BufferedImage(newWidth, newHeight, bi.getType());
+        BufferedImage stretechedImage = new BufferedImage(newWidth, newHeight*3, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = stretechedImage.createGraphics();
         double angle = Math.atan2(y2-y1, x2-x1);
         System.out.println(angle);
         AffineTransform transform = new AffineTransform();
-        transform.translate(newWidth / 2.0, newHeight / 2.0);
+        transform.translate(newWidth / 2.0, newHeight );
         transform.rotate(angle);
-        transform.scale((double) newWidth / bi.getWidth(), 1);
-        transform.translate(-bi.getWidth() / 2.0, -bi.getHeight() / 2.0);
+        transform.scale((double) newWidth / bi.getWidth(), 0.3f);
+        transform.translate(-bi.getWidth() / 2.0, -bi.getHeight() );
 
         g2d.transform(transform);
         g2d.drawImage(bi, 0, 0, null);
         System.out.println(g2d.toString());
         g2d.dispose();
         
-        ImageIO.write(stretechedImage, "png", new File("assets/transformedFile.png"));
+        ImageIO.write(stretechedImage, "png", new File("assets/transformedFile"+Level2.numOfWires+".png"));
 
 
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(wire, "Failed to make a wire image" + e);
+        JOptionPane.showMessageDialog(wire, "Failed to make a wire image " + e + " " );
     }
     }
 

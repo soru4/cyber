@@ -87,9 +87,10 @@ public class ComputerComponent {
         /*
         * 
         */
-        if (component.conn.isEmpty()) {
+        if (component.conn.isEmpty() ) {
             return true;
         }
+        
         for (ComputerComponent c : component.conn) {
             switch (component.type) {
                 case "World":
