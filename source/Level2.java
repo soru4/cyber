@@ -75,10 +75,17 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
         Button button4 = new Button("Check Connections");
         button4.addActionListener((ActionEvent e) -> {
-            if(world.CheckConnection()){
+            int computer = 0;
+            for(ComponentHolder s: holders ){
+                if(s.component.type.equals("Computer"))
+                    computer++;
+            }
+            if(world.CheckConnection() && computer>=Level1.build.getWorkforceSize()){
                 JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
+                frame.dispose();
+                new Level3();
             }else{
-                JOptionPane.showMessageDialog(frame, "You have one or more invalid connections in your world. Please check your connections and try again! You are bad!");
+                JOptionPane.showMessageDialog(frame, "You have one or more invalid connections in your world or you dont have enough computers. Please check your connections and try again! You are bad!");
             }
 
 
@@ -112,7 +119,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                     JLabel instanceLabel = new JLabel(imageIcon);
                     numOfWires++;
                     panel2.add(instanceLabel);
-
+                    
                     Insets insets = panel2.getInsets();
                     Dimension size = instanceLabel.getPreferredSize();
                     instanceLabel.setBounds((int)((recentlyClicked1.label.getX() -recentlyClicked1.label.getWidth() /2)) , (int)(( recentlyClicked1.label.getY() +recentlyClicked1.label.getHeight() /2 )) ,size.width,size.height); // idk how this works fix brandon
@@ -120,6 +127,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                     System.out.println("Y: " +(int)((recentlyClicked1.label.getY() + recentlyClicked1.label.getHeight() )));
                     wires.add(x);
                     recentlyClicked.clear();
+                    x.wire= instanceLabel;
                     frame.add(x.getWire());
                     panel.revalidate();
                     panel.repaint();
@@ -363,7 +371,7 @@ class ComponentHolder{
 class Connection{
     public ComponentHolder object1; 
     public ComponentHolder object2; 
-    private JLabel wire; 
+    public  JLabel wire; 
 
     public Connection(ComponentHolder o1, ComponentHolder o2){
         object1 = o1;
@@ -394,7 +402,7 @@ class Connection{
         AffineTransform transform = new AffineTransform();
         transform.translate(newWidth / 2.0, newHeight );
         transform.rotate(angle);
-        transform.scale((double) newWidth / bi.getWidth(), 0.3f);
+        transform.scale((double) newWidth / bi.getWidth(), 0.078f);
         transform.translate(-bi.getWidth() / 2.0, -bi.getHeight() );
 
         g2d.transform(transform);
