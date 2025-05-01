@@ -82,6 +82,14 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
             }
             if(world.CheckConnection() && computer>=Level1.build.getWorkforceSize()){
                 JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
+                for(int i = 0; i <=numOfWires; i++){
+                    File myObj = new File("assets/transformedFile"+i+".png"); 
+                    if (myObj.delete()) { 
+                      System.out.println("Deleted the file: " + myObj.getName());
+                    } else {
+                      System.out.println("Failed to delete the file.");
+                    } 
+                }
                 frame.dispose();
                 new Level3();
             }else{
@@ -127,7 +135,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                     System.out.println("Y: " +(int)((recentlyClicked1.label.getY() + recentlyClicked1.label.getHeight() )));
                     wires.add(x);
                     recentlyClicked.clear();
-                    x.wire= instanceLabel;
+                   // x.wire= instanceLabel;
                     frame.add(x.getWire());
                     panel.revalidate();
                     panel.repaint();
