@@ -12,6 +12,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public JFrame frame;
     Point startPoint;
     private java.util.Stack<Connection> wires = new Stack<Connection>();
+    private java.util.Stack<JLabel> wireImages = new Stack<JLabel>();
     //Replace components with arraylist from level1
     private ArrayList<JLabel> components = new ArrayList<JLabel>();
     ArrayList<ComputerComponent> pulledCart;
@@ -127,15 +128,21 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                     JLabel instanceLabel = new JLabel(imageIcon);
                     numOfWires++;
                     panel2.add(instanceLabel);
-                    
-                    Insets insets = panel2.getInsets();
+                    int signChange = 1;
+                    if(recentlyClicked1.label.getX() <= recentlyClicked2.label.getX()){
+                        signChange = 1;
+                    }else{
+                        signChange = -1;
+                    }
                     Dimension size = instanceLabel.getPreferredSize();
-                    instanceLabel.setBounds((int)((recentlyClicked1.label.getX() -recentlyClicked1.label.getWidth() /2)) , (int)(( recentlyClicked1.label.getY() +recentlyClicked1.label.getHeight() /2 )) ,size.width,size.height); // idk how this works fix brandon
-                    System.out.println("X: " +(int)((recentlyClicked1.label.getX() - recentlyClicked1.label.getWidth())));
-                    System.out.println("Y: " +(int)((recentlyClicked1.label.getY() + recentlyClicked1.label.getHeight() )));
+                    //TODO: fix wire placement and image creation
+                    instanceLabel.setBounds((int)((recentlyClicked1.label.getX()) - 35 * signChange) , (int)((recentlyClicked1.label.getY()) + signChange * 50) ,size.width,size.height); 
+                    
+                    // System.out.println("X: " +(int)((recentlyClicked1.label.getX() - (signChange * recentlyClicked1.label.getWidth()))));
+                    // System.out.println("Y: " +(int)((recentlyClicked1.label.getY() + (signChange * recentlyClicked1.label.getHeight()))));
                     wires.add(x);
+                    wireImages.add(instanceLabel);
                     recentlyClicked.clear();
-                   // x.wire= instanceLabel;
                     frame.add(x.getWire());
                     panel.revalidate();
                     panel.repaint();
@@ -149,9 +156,14 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
         button3.addActionListener((ActionEvent e) -> { // removes the mostly recent wire connection
             if(wires.size() > 0){
-                Connection instanceLabel = wires.pop();
-                panel2.remove(instanceLabel.getWire());
-                instanceLabel.object1.component.removeConnection(instanceLabel.object2.component);
+                Connection wire = wires.pop();
+                JLabel wireImage = wireImages.pop();
+
+                panel2.remove(wire.getWire());
+                wire.object1.component.removeConnection(wire.object2.component);
+
+                panel2.remove(wireImage);
+
                 panel2.revalidate();
                 panel2.repaint();
             }
@@ -397,7 +409,8 @@ class Connection{
         int y1 = object1.getLabel().getY();
         int y2 = object2.getLabel().getY();
 
-        int newWidth = (int)Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1,2));
+        //int newWidth = (int)Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1,2));
+        int newWidth = (int)(Math.abs(x2 - x1)*1.8);
         int newHeight = wire.getHeight();
         // creates a physical wire from one component to another; 
         try {
