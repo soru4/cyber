@@ -11,6 +11,7 @@ public class ComputerComponent {
     public int ports;
     public ArrayList<ComputerComponent> conn;
     public Icon icon;
+    public String ip;
 
     public ComputerComponent(int price, String type, int ports, String icon) {
         this.price = price;
@@ -18,6 +19,7 @@ public class ComputerComponent {
         this.ports = ports;
         this.conn = new ArrayList<ComputerComponent>(ports);
         this.icon = new ImageIcon(icon);
+        this.ip = "0.0.0.0";
     }
 
     public ComputerComponent(int price, String type, int ports) {
@@ -26,6 +28,7 @@ public class ComputerComponent {
         this.ports = ports;
         this.conn = new ArrayList<ComputerComponent>(ports);
         this.icon = null;
+        this.ip = "0.0.0.0";
     }
 
     public int getPrice() {
@@ -87,10 +90,10 @@ public class ComputerComponent {
         /*
         * 
         */
-        if (component.conn.isEmpty() ) {
+        if (component.conn.isEmpty()) {
             return true;
         }
-        
+
         for (ComputerComponent c : component.conn) {
             switch (component.type) {
                 case "World":
@@ -124,4 +127,53 @@ public class ComputerComponent {
         return false;
     }
 
+    public void setIP(String i) {
+        if (!i.contains("/")) {
+            i += "/32";
+        }
+        String[] ip = i.substring(0, i.indexOf("/")).split("\\.");
+        int range = Integer.parseInt(i.substring(i.indexOf("/")));
+        int[] prefix = new int[4];
+        for (int j = 0; j < ip.length; j++) {
+            int q = Integer.parseInt(ip[j]);
+            if (q < 0 || q > 255) {
+                JOptionPane.showMessageDialog(null, "Invalid IP address. Please enter a valid IP address.");
+                return;
+            }
+            prefix[j] = q;
+        }
+
+        if (range < 0 || range > 32) {
+            JOptionPane.showMessageDialog(null, "Invalid CIDR range. Please enter a valid CIDR range.");
+            return;
+        }
+        this.ip = generateRandomIP(prefix, range);
+    }
+
+    private String generateRandomIP(int[] startingBits, int range) {
+        int[] ip = new int[4];
+        // Copy starting bits
+        for (int i = 0; i < startingBits.length; i++) {
+            ip[i] = startingBits[i];
+        }
+        // Fill remaining bits randomly, but keep within the subnet
+        int bitsToRandomize = 32 - range;
+        int randomPart = (int) (Math.random() * (1 << bitsToRandomize));
+        int ipInt = 0;
+        // Build the base IP as int
+        for (int i = 0; i < 4; i++) {
+            ipInt |= (i < startingBits.length ? startingBits[i] : 0) << (24 - 8 * i);
+        }
+        // Add the random part
+        ipInt |= randomPart;
+        // Convert back to octets
+        for (int i = 0; i < 4; i++) {
+            ip[i] = (ipInt >> (24 - 8 * i)) & 0xFF;
+        }
+        return ip[0] + "." + ip[1] + "." + ip[2] + "." + ip[3];
+    }
+
+    public String getIP() {
+        return ip;
+    }
 }

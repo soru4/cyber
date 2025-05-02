@@ -18,7 +18,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     ArrayList<ComputerComponent> pulledCart;
     public ArrayList<ComponentHolder> holders = new ArrayList<ComponentHolder>();
     public Queue<ComponentHolder> recentlyClicked = new LinkedList<ComponentHolder>();
-    public ComputerComponent world;
+    public static ComputerComponent  world;
     public boolean isPlaceMode = false; 
     public static int numOfWires = 0 ; 
     public Level2(ArrayList<ComputerComponent> cart) {

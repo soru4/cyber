@@ -4,7 +4,7 @@ public class Scenario {
     public String[] companyNames = { "AlphaTech", "BetaSecure", "GammaCorp", "DeltaNet", "EpsilonData",
             "ZetaGuard", "ThetaInfo", "IotaShield", "KappaSafe", "LambdaSecure",
             "OmicronTech", "SigmaNet", "TauData", "UpsilonGuard", "PhiInfo",
-            "ChiShield", "PsiSafe", "OmegaSecure", "NovaTech", "PioneerNet" };
+            "ChiShield", "PsiSafe", "OmegaSecure", "NovaTech", "PioneerNet",  };
     public int budget;
     public int workforceSize;
     public String[] securityLevel = { "isolated", "privacy-focused", "informal", "public" };

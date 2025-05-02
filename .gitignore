@@ -25,3 +25,6 @@ replay_pid*
 
 # Krita files
 *.kra
+
+# macOS
+.DS_Store
