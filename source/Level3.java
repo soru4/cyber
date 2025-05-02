@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class Level3 implements ActionListener, MouseListener, MouseMotionListener {
@@ -73,7 +74,15 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         centerPanel.removeAll();
                         centerPanel.revalidate();
                         centerPanel.repaint();
-                        JLabel ipLabel = new JLabel("Connections:" +  "Not yet implemented");
+                        String connsString = "";
+                        ArrayList<ComputerComponent> x2 = allChildComponents(Level2.world);
+                        for (ComputerComponent comp : x2) {
+                            connsString += comp.getType() + " \n";
+                        }
+
+                        JLabel ipLabel = new JLabel("Connections: " +  connsString);
+                        
+
                         ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
     
                         centerPanel.add(ipLabel);
@@ -113,6 +122,20 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
         frame.add(centerPanel, BorderLayout.CENTER);
 
         updateFrame(frame);
+    }
+
+    public ArrayList<ComputerComponent> allChildComponents(ComputerComponent comp) {
+        ArrayList<ComputerComponent> allComponents = new ArrayList<ComputerComponent>();
+        if (comp.conn.isEmpty()) {
+            allComponents.add(comp);
+            return allComponents;
+        }
+            for (ComputerComponent comp1 : comp.conn) {
+                allComponents.add(comp1);
+                allComponents.addAll(allChildComponents(comp1));
+            
+        }
+        return allComponents;
     }
 
     public void updateFrame(JFrame j) {
