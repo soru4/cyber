@@ -13,6 +13,5 @@ Licensed under the MIT.
 ## Running
 
 ```bash
-cd source
-java runner.java
+java source/Runner.java
 ```
