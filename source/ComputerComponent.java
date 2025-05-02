@@ -128,6 +128,9 @@ public class ComputerComponent {
     }
 
     public void setIP(String i) {
+        if (!i.contains("/")) {
+            i += "/32";
+        }
         String[] ip = i.substring(0, i.indexOf("/")).split("\\.");
         int range = Integer.parseInt(i.substring(i.indexOf("/")));
         int[] prefix = new int[4];
