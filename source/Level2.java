@@ -77,10 +77,17 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         Button button4 = new Button("Check Connections");
         button4.addActionListener((ActionEvent e) -> {
             int computer = 0;
+
             for(ComponentHolder s: holders ){
-                if(s.component.type.equals("Computer"))
-                    computer++;
+                if(s.component.type.equals("Computer")){
+                    
+                   
+                    if(s.component.isSouthOf(world)){
+                        computer++;
+                    }
+                }
             }
+        
             if(world.CheckConnection() && computer>=Level1.build.getWorkforceSize()){
                 JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
                 for(int i = 0; i <=numOfWires; i++){
@@ -104,7 +111,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         button5.addActionListener((ActionEvent e) -> {
            isPlaceMode = !isPlaceMode; 
             button5.setLabel(isPlaceMode ? "Turn off Build Mode" : "Turn on Build Mode");
-
+            panel2.setBackground(isPlaceMode ? Color.GREEN : Color.GRAY);
         });
         panel.add(button4);
         panel.add(button5);
@@ -114,7 +121,11 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         button2.addActionListener((ActionEvent e) -> { // on button press it creates a wire image currently. 
 
             if(recentlyClicked.size()==2){
-               
+                for(ComponentHolder y: recentlyClicked){
+                
+                    y.label.setBackground(null);
+                    y.label.setOpaque(false);
+                }
                 ComponentHolder recentlyClicked1 = recentlyClicked.poll(); 
                 ComponentHolder recentlyClicked2 = recentlyClicked.poll();
                
@@ -142,6 +153,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                     // System.out.println("Y: " +(int)((recentlyClicked1.label.getY() + (signChange * recentlyClicked1.label.getHeight()))));
                     wires.add(x);
                     wireImages.add(instanceLabel);
+                   
+                
                     recentlyClicked.clear();
                     frame.add(x.getWire());
                     panel.revalidate();
@@ -190,6 +203,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public void populateComponentList(ArrayList<ComputerComponent> cart, JPanel panel){
 
         world = new ComputerComponent(0, "World", 1);
+        world.setIP("192.168.10.1/32");
         ImageIcon imageIcon1 = new ImageIcon("assets/75519.png");
         JLabel instanceLabel1 = new JLabel(imageIcon1);
         holders.add(new ComponentHolder(world, instanceLabel1));
@@ -260,6 +274,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 instanceLabel.setBounds(25+insets.left, 5+insets.top,size.width,size.height);
             }
         }
+       
         panel.revalidate();
         panel.repaint();
     }
@@ -282,7 +297,16 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                     if(!doesContain)
                         recentlyClicked.add(x);
                 }
-            }
+            } // make component in recently clicked have a background
+          
+                for(ComponentHolder y: recentlyClicked){
+                 
+                        y.label.setBackground(Color.YELLOW);
+                        y.label.setOpaque(true);
+                    
+                }
+              
+            
             
         }
         else if(SwingUtilities.isRightMouseButton(e) || e.isPopupTrigger()){
@@ -299,19 +323,30 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         }
         else{
             JOptionPane.showMessageDialog(frame, "Clicking on too many components at once. Resetting clicked");
-            recentlyClicked.clear();
+            for(ComponentHolder y: recentlyClicked){
+                
+                    y.label.setBackground(null);
+                    y.label.setOpaque(false);
+                }
+                recentlyClicked.clear();
+            }
+         
         }
+
+    
 
       
 
-    }
+    
 
     private JPopupMenu createPopupMenu(ComputerComponent x) {
         
         JPopupMenu popupMenu = new JPopupMenu();
         JMenuItem item2 = new JMenuItem(x.type);
+        JMenuItem item3 = new JMenuItem("IP: " + x.ip);
         JMenuItem item1 = new JMenuItem("Current Connections Number: " + x.conn.size());
         popupMenu.add(item2);
+        popupMenu.add(item3);
         popupMenu.add(item1);
         for(ComputerComponent y : x.conn){
             JMenuItem xJMenuItem = new JMenuItem("Connected to " + y.type);

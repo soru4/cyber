@@ -13,9 +13,9 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
     public JButton button;
     public JButton button2;
     Point startPoint;
-    private static final int ROWS = 4;
+    private static final int ROWS = 5;
     private static final int COLS = 2;
-    public String[] options = { "IP Address", "Connections", "DMZ Setup", "Open VPN Setup" };
+    public String[] options = { "IP Address", "Connections", "DMZ Setup", "Open VPN Setup", "DHCP Setup" };
 
     public JButton [] optionsClicked = new JButton[options.length];
 
@@ -38,10 +38,23 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
 
         JPanel topPanel = new JPanel(true);
         JLabel topLabel = new JLabel("IP Router Settings: ");
+        JButton topButton = new JButton("Check");
+        topButton.addActionListener((ActionEvent e) -> {
+            if(Level1.build.securityString.equals("isolated")){
+                JOptionPane.showMessageDialog(frame, "You have not set up the DMZ yet. Please do so before checking the router settings.");
+            } else if(Level1.build.securityString.equals("privacy-focused")){
+                JOptionPane.showMessageDialog(frame, "You have not set up the VPN yet. Please do so before checking the router settings.");
+            } else if(Level1.build.securityString.equals("informal")){
+                JOptionPane.showMessageDialog(frame, "You have not set up the DHCP yet. Please do so before checking the router settings.");
+            } else {
+                new Level4();
+            }
+        });
+        topPanel.add(topButton);
         topLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
         topLabel.setForeground(Color.WHITE); // set the font color
         topPanel.add(topLabel);
-        topPanel.setSize(1920, 100); // set the size of the top panel
+        topPanel.setSize(1920, 100); 
         topPanel.setBackground(Color.GRAY);
         frame.add(topPanel, BorderLayout.NORTH);
 
@@ -63,7 +76,7 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                     centerPanel.revalidate();
                     centerPanel.repaint();
                     JLabel ipLabel = new JLabel("IP Address:" + "10.2.32.23");
-                    ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
+                    ipLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
                     centerPanel.add(ipLabel);
                     System.out.println("Button clicked: " + e.getActionCommand());
@@ -83,7 +96,7 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         JLabel ipLabel = new JLabel("Connections: " +  connsString);
                         
 
-                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
+                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24));
     
                         centerPanel.add(ipLabel);
                         System.out.println("Button clicked: " + e.getActionCommand());
@@ -94,7 +107,7 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         centerPanel.revalidate();
                         centerPanel.repaint();
                         JLabel ipLabel = new JLabel("DMZ Set Up:" +  "Not yet implemented");
-                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
+                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); 
     
                         centerPanel.add(ipLabel);
                         System.out.println("Button clicked: " + e.getActionCommand());
@@ -107,17 +120,45 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         centerPanel.repaint();
                         JLabel ipLabel = new JLabel("OpenVPN:" +  " Set Up VPN Server and Client");
 
-                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
+                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); 
                         JButton ipButton = new JButton("Set Up VPN Server and Client");
                         centerPanel.add(ipLabel);
                         centerPanel.add(ipButton);
                         ipButton.addActionListener((ActionEvent e2) -> {
-                            // Implement the action for the button here
+                           
                             System.out.println("VPN Server and Client Set Up");
                         });
                         System.out.println("Button clicked: " + e.getActionCommand());
                     });
-        }}
+        }
+        else if(x.getText().equals("DHCP Setup")){
+            x.addActionListener((ActionEvent e) -> {
+
+                centerPanel.removeAll();
+                centerPanel.revalidate();
+                centerPanel.repaint();
+                JLabel ipLabel = new JLabel("DHCP Set Up:" +  "");
+                ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
+                centerPanel.add(ipLabel);
+                JTextField clientIpField = new JTextField(10);
+                JTextField rangeField = new JTextField(10);
+                JPanel dhcpPanel = new JPanel();
+                dhcpPanel.add(new JLabel("Client IP Address:"));
+                dhcpPanel.add(clientIpField);
+                dhcpPanel.add(new JLabel("Range of IP Addresses:"));
+                dhcpPanel.add(rangeField);
+                JButton dhcpButton = new JButton("Set Up DHCP Server and Client");
+                dhcpButton.addActionListener((ActionEvent e2) -> {
+                    String clientIp = clientIpField.getText();
+                    String range = rangeField.getText();
+                
+                    System.out.println("DHCP Server and Client Set Up with Client IP: " + clientIp + " and Range: " + range);
+                });
+                centerPanel.add(dhcpPanel);
+            });
+
+    
+    }}
         frame.add(optionsPanel, BorderLayout.WEST);
         frame.add(centerPanel, BorderLayout.CENTER);
 

@@ -7,15 +7,16 @@ public class Scenario {
             "ChiShield", "PsiSafe", "OmegaSecure", "NovaTech", "PioneerNet",  };
     public int budget;
     public int workforceSize;
-    public String[] securityLevel = { "isolated", "privacy-focused", "informal", "public" };
-    public String currName;
+    public String[] securityLevel = { "isolated", "privacy-focused", "informal", "public" }; // isolated means DMZ, VPN, DHCP. privacy focused means DMZ and DHCP. informal means DHCP. public means nothing perse. 
+        public String currName;
     public String securityString;
 
     public Scenario() {
         // Constructor to initialize the scenario generation
         this.currName = companyNames[((int) (Math.random() * companyNames.length))];
-        this.budget = (int) (Math.random() * 20000) + 4000; //FIXME: The game is sometimes impossible due to large workforces and small budgets.
+        
         this.workforceSize = (int) (Math.random() * 6) + 1;
+        this.budget = (int) (Math.random() * 20000) + (1200 * workforceSize); 
         this.securityString = securityLevel[(int) (Math.random() * securityLevel.length)];
     }
 

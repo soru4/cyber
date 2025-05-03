@@ -1,7 +1,11 @@
 
 class Scene {
 
+
+    
     public Scene() {
+
+        // Scene should hold all instances of each level. 
         // add the classes that extend MonoBehaviour here( just call the constructor)
         // GameLoop.__inst__.Instantiate(new TextCounter(), 0);
         // GameLoop.__inst__.Instantiate(
