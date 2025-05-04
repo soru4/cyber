@@ -1,11 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Level2 implements ActionListener, MouseListener, MouseMotionListener {
@@ -13,7 +10,6 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public static JFrame frame;
     Point startPoint;
     private java.util.Stack<Connection> wires = new Stack<Connection>();
-    private java.util.Stack<JLabel> wireImages = new Stack<JLabel>();
     //Replace components with arraylist from level1
     private ArrayList<JLabel> components = new ArrayList<JLabel>();
     ArrayList<ComputerComponent> pulledCart;
@@ -130,7 +126,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
-        button2.addActionListener((ActionEvent e) -> { // on button press it creates a wire image currently. 
+        button2.addActionListener((ActionEvent e) -> { 
 
             if(recentlyClicked.size()==2){
                 for(ComponentHolder y: recentlyClicked){
@@ -146,47 +142,10 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 //connects first component to second. 
                 if(obj1.addConnection(obj2, frame)){
                     Connection x = new Connection(recentlyClicked1, recentlyClicked2);
-                    
-                    JLabel label1 = recentlyClicked1.label;
-                    JLabel label2 = recentlyClicked2.label;
-
-
+        
                     x.realizeConnection(panel2);
-                    ImageIcon imageIcon = new ImageIcon("assets/transformedFile" + numOfWires + ".png");
-                    JLabel instanceLabel = new JLabel(imageIcon);
-                    numOfWires++;
-                    panel2.add(instanceLabel);
-
-                    // Dimension size = instanceLabel.getPreferredSize();
-                    // //Works at small but not large distances
-                    // if(label1.getX() <= label2.getX() && label1.getY() > label2.getY()){
-                    //     //Q1
-                    //     instanceLabel.setBounds(((int)(label1.getX())), (int)((label1.getY())) ,size.width,size.height);
-                    // }
-                    // else if(label1.getX() > label2.getX() && label1.getY() > label2.getY()){
-                    //     //Q2
-                    //     instanceLabel.setBounds(((int)(label1.getX()-label1.getWidth())), (int)((label1.getY())) ,size.width,size.height);
-                    // }
-                    // else if(label1.getX() > label2.getX() && label1.getY() <= label2.getY()){
-                    //     //Q3
-                    //     instanceLabel.setBounds(((int)(label1.getX()-1.5*label1.getWidth())), (int)((label1.getY()+label1.getHeight()*.75)) ,size.width,size.height);
-                    // }
-                    // else if(label1.getX() <= label2.getX() && label1.getY() <= label2.getY()){
-                    //     //Q4
-                    //     instanceLabel.setBounds(((int)(label1.getX())), (int)((label1.getY()+label1.getHeight()*.75)) ,size.width,size.height);
-                    // }
-                    // else{
-                    //     instanceLabel.setBounds(100, 100, size.width, size.height);
-                    // }
-                    //instanceLabel.setBounds((int)((label1.getX() - size.width/22)), (int)((label1.getY() + label1.getHeight() * signChange)) ,size.width,size.height);
-                    
-                    
-                    // System.out.println("X: " +(int)((recentlyClicked1.label.getX() - (signChange * recentlyClicked1.label.getWidth()))));
-                    // System.out.println("Y: " +(int)((recentlyClicked1.label.getY() + (signChange * recentlyClicked1.label.getHeight()))));
                     wires.add(x);
-                    wireImages.add(instanceLabel);
                    
-                
                     recentlyClicked.clear();
                     //frame.add(x.getWire());
                     panel.revalidate();
@@ -202,13 +161,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         button3.addActionListener((ActionEvent e) -> { // removes the mostly recent wire connection
             if(wires.size() > 0){
                 Connection wire = wires.pop();
-                //JLabel wireImage = wireImages.pop();
 
-                
                 wire.object1.component.removeConnection(wire.object2.component);
-
-                //panel2.remove(wireImage);
-
                 panel2.revalidate();
                 panel2.repaint();
             }
@@ -470,53 +424,11 @@ class Connection{
         g2d.setColor(Color.RED);
         g2d.setStroke(new BasicStroke(5));
         g2d.setColor(Color.RED); // change this line below to change positioning. 
-        Line2D line = new Line2D.Double(object1.getLabel().getX(), object1.getLabel().getY(), object2.getLabel().getX(), object2.getLabel().getY());
+        Line2D line = new Line2D.Double(object1.getLabel().getX() + object1.getLabel().getWidth()/2, object1.getLabel().getY() + object1.getLabel().getHeight()/2, object2.getLabel().getX() + object2.getLabel().getWidth()/2, object2.getLabel().getY() + object2.getLabel().getHeight()/2);
         wire = line;
         //System.out.println("line" + line.toString());
         g2d.draw(line);
         x.repaint();
-        /* 
-        wire = new JLabel(new ImageIcon("assets/redWire.png"));
-        Insets insets1 = x.getInsets();
-        Dimension size1 = wire.getPreferredSize();
-        wire.setBounds(25+insets1.left, 5+insets1.top,size1.width,size1.height);
-
-        int x1 = object1.getLabel().getX();
-        int x2 = object2.getLabel().getX();
-        int y1 = object1.getLabel().getY();
-        int y2 = object2.getLabel().getY();
-
-        int newWidth = (int)Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1,2));
-        newWidth *= 1.5;
-
-        
-        int newHeight = wire.getHeight();
-        // creates a physical wire from one component to another; 
-        try {
-        BufferedImage bi = ImageIO.read(new File("assets/redWire.png"));
-        System.out.println(bi.toString());
-        BufferedImage stretechedImage = new BufferedImage(newWidth, newHeight*3, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = stretechedImage.createGraphics();
-        double angle = Math.atan2(y2-y1, x2-x1);
-        System.out.println(angle);
-        AffineTransform transform = new AffineTransform();
-        transform.translate(newWidth / 2.0, newHeight );
-        transform.rotate(angle);
-        transform.scale((double) newWidth / bi.getWidth(), 0.078f);
-        transform.translate(-bi.getWidth() / 2.0, -bi.getHeight() );
-
-        g2d.transform(transform);
-        g2d.drawImage(bi, 0, 0, null);
-       // System.out.println(g2d.toString());
-        g2d.dispose();
-       
-        ImageIO.write(stretechedImage, "png", new File("assets/transformedFile"+Level2.numOfWires+".png"));
-
-
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(wire, "Failed to make a wire image " + e + " " );
-    }
-        */
     }
 
     public Line2D getWire(){
