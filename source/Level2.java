@@ -17,6 +17,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public Queue<ComponentHolder> recentlyClicked = new LinkedList<ComponentHolder>();
     public static ComputerComponent  world;
     public boolean isPlaceMode = false; 
+    public boolean isClicking = false;
     public static int numOfWires = 0 ; 
     public Level2(ArrayList<ComputerComponent> cart) {
         pulledCart = cart;
@@ -59,11 +60,21 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
             @Override
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                //g.clearRect(0, 0, getWidth(),getHeight());
+                
+          
                 for (Connection wire : wires) {
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.setColor(Color.RED);
                     g2d.setStroke(new BasicStroke(5));
+                    //make it so that when object one and object two are moved, the line moves with it.
+                    g2d.setColor(Color.RED); // change this line below to change positioning.
+                    // if(!isClicking){
+                    //     Line2D line = new Line2D.Double(wire.object1.getLabel().getX() + wire.object1.getLabel().getWidth()/2, wire.object1.getLabel().getY() + wire.object1.getLabel().getHeight()/2, wire.object2.getLabel().getX() + wire.object2.getLabel().getWidth()/2, wire.object2.getLabel().getY() + wire.object2.getLabel().getHeight()/2);
+                    //     wire.wire = line;
+                    // }
                     g2d.draw(wire.wire);
+                    //g2d.draw(wire.wire);
                 }
             }
         };
@@ -266,7 +277,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        isClicking = true;
     }
 
     @Override
@@ -346,6 +357,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     @Override
     public void mouseReleased(MouseEvent e) {
         startPoint = null;
+        isClicking = false;
     }
 
     @Override
