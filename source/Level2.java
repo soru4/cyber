@@ -134,20 +134,40 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                 //connects first component to second. 
                 if(obj1.addConnection(obj2, frame)){
                     Connection x = new Connection(recentlyClicked1, recentlyClicked2);
+                    
+                    JLabel label1 = recentlyClicked1.label;
+                    JLabel label2 = recentlyClicked2.label;
+
+
                     x.realizeConnection(panel);
                     ImageIcon imageIcon = new ImageIcon("assets/transformedFile" + numOfWires + ".png");
                     JLabel instanceLabel = new JLabel(imageIcon);
                     numOfWires++;
                     panel2.add(instanceLabel);
-                    int signChange = 1;
-                    if(recentlyClicked1.label.getX() <= recentlyClicked2.label.getX()){
-                        signChange = 1;
-                    }else{
-                        signChange = -1;
-                    }
+
                     Dimension size = instanceLabel.getPreferredSize();
-                    //TODO: fix wire placement and image creation
-                    instanceLabel.setBounds((int)((recentlyClicked1.label.getX()) - 35 * signChange) , (int)((recentlyClicked1.label.getY()) + signChange * 50) ,size.width,size.height); 
+                    //Works at small but not large distances
+                    if(label1.getX() <= label2.getX() && label1.getY() > label2.getY()){
+                        //Q1
+                        instanceLabel.setBounds(((int)(label1.getX())), (int)((label1.getY())) ,size.width,size.height);
+                    }
+                    else if(label1.getX() > label2.getX() && label1.getY() > label2.getY()){
+                        //Q2
+                        instanceLabel.setBounds(((int)(label1.getX()-label1.getWidth())), (int)((label1.getY())) ,size.width,size.height);
+                    }
+                    else if(label1.getX() > label2.getX() && label1.getY() <= label2.getY()){
+                        //Q3
+                        instanceLabel.setBounds(((int)(label1.getX()-1.5*label1.getWidth())), (int)((label1.getY()+label1.getHeight()*.75)) ,size.width,size.height);
+                    }
+                    else if(label1.getX() <= label2.getX() && label1.getY() <= label2.getY()){
+                        //Q4
+                        instanceLabel.setBounds(((int)(label1.getX())), (int)((label1.getY()+label1.getHeight()*.75)) ,size.width,size.height);
+                    }
+                    else{
+                        instanceLabel.setBounds(100, 100, size.width, size.height);
+                    }
+                    //instanceLabel.setBounds((int)((label1.getX() - size.width/22)), (int)((label1.getY() + label1.getHeight() * signChange)) ,size.width,size.height);
+                    
                     
                     // System.out.println("X: " +(int)((recentlyClicked1.label.getX() - (signChange * recentlyClicked1.label.getWidth()))));
                     // System.out.println("Y: " +(int)((recentlyClicked1.label.getY() + (signChange * recentlyClicked1.label.getHeight()))));
@@ -444,8 +464,10 @@ class Connection{
         int y1 = object1.getLabel().getY();
         int y2 = object2.getLabel().getY();
 
-        //int newWidth = (int)Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1,2));
-        int newWidth = (int)(Math.abs(x2 - x1)*1.8);
+        int newWidth = (int)Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1,2));
+        newWidth *= 1.5;
+
+        
         int newHeight = wire.getHeight();
         // creates a physical wire from one component to another; 
         try {
