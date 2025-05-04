@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
@@ -9,7 +10,7 @@ import javax.swing.*;
 
 public class Level2 implements ActionListener, MouseListener, MouseMotionListener {
 
-    public JFrame frame;
+    public static JFrame frame;
     Point startPoint;
     private java.util.Stack<Connection> wires = new Stack<Connection>();
     private java.util.Stack<JLabel> wireImages = new Stack<JLabel>();
@@ -58,7 +59,18 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         JPanel panel = new JPanel(); // panel kinda like <View>.
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
 
-        JPanel panel2 = new JPanel();
+        JPanel panel2 = new JPanel(){
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                for (Connection wire : wires) {
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setColor(Color.RED);
+                    g2d.setStroke(new BasicStroke(5));
+                    g2d.draw(wire.wire);
+                }
+            }
+        };
         panel2.setLayout(null);
 
         panel2.setBackground(Color.GRAY);
@@ -139,33 +151,33 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                     JLabel label2 = recentlyClicked2.label;
 
 
-                    x.realizeConnection(panel);
+                    x.realizeConnection(panel2);
                     ImageIcon imageIcon = new ImageIcon("assets/transformedFile" + numOfWires + ".png");
                     JLabel instanceLabel = new JLabel(imageIcon);
                     numOfWires++;
                     panel2.add(instanceLabel);
 
-                    Dimension size = instanceLabel.getPreferredSize();
-                    //Works at small but not large distances
-                    if(label1.getX() <= label2.getX() && label1.getY() > label2.getY()){
-                        //Q1
-                        instanceLabel.setBounds(((int)(label1.getX())), (int)((label1.getY())) ,size.width,size.height);
-                    }
-                    else if(label1.getX() > label2.getX() && label1.getY() > label2.getY()){
-                        //Q2
-                        instanceLabel.setBounds(((int)(label1.getX()-label1.getWidth())), (int)((label1.getY())) ,size.width,size.height);
-                    }
-                    else if(label1.getX() > label2.getX() && label1.getY() <= label2.getY()){
-                        //Q3
-                        instanceLabel.setBounds(((int)(label1.getX()-1.5*label1.getWidth())), (int)((label1.getY()+label1.getHeight()*.75)) ,size.width,size.height);
-                    }
-                    else if(label1.getX() <= label2.getX() && label1.getY() <= label2.getY()){
-                        //Q4
-                        instanceLabel.setBounds(((int)(label1.getX())), (int)((label1.getY()+label1.getHeight()*.75)) ,size.width,size.height);
-                    }
-                    else{
-                        instanceLabel.setBounds(100, 100, size.width, size.height);
-                    }
+                    // Dimension size = instanceLabel.getPreferredSize();
+                    // //Works at small but not large distances
+                    // if(label1.getX() <= label2.getX() && label1.getY() > label2.getY()){
+                    //     //Q1
+                    //     instanceLabel.setBounds(((int)(label1.getX())), (int)((label1.getY())) ,size.width,size.height);
+                    // }
+                    // else if(label1.getX() > label2.getX() && label1.getY() > label2.getY()){
+                    //     //Q2
+                    //     instanceLabel.setBounds(((int)(label1.getX()-label1.getWidth())), (int)((label1.getY())) ,size.width,size.height);
+                    // }
+                    // else if(label1.getX() > label2.getX() && label1.getY() <= label2.getY()){
+                    //     //Q3
+                    //     instanceLabel.setBounds(((int)(label1.getX()-1.5*label1.getWidth())), (int)((label1.getY()+label1.getHeight()*.75)) ,size.width,size.height);
+                    // }
+                    // else if(label1.getX() <= label2.getX() && label1.getY() <= label2.getY()){
+                    //     //Q4
+                    //     instanceLabel.setBounds(((int)(label1.getX())), (int)((label1.getY()+label1.getHeight()*.75)) ,size.width,size.height);
+                    // }
+                    // else{
+                    //     instanceLabel.setBounds(100, 100, size.width, size.height);
+                    // }
                     //instanceLabel.setBounds((int)((label1.getX() - size.width/22)), (int)((label1.getY() + label1.getHeight() * signChange)) ,size.width,size.height);
                     
                     
@@ -176,7 +188,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
                    
                 
                     recentlyClicked.clear();
-                    frame.add(x.getWire());
+                    //frame.add(x.getWire());
                     panel.revalidate();
                     panel.repaint();
                 }
@@ -190,12 +202,12 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
         button3.addActionListener((ActionEvent e) -> { // removes the mostly recent wire connection
             if(wires.size() > 0){
                 Connection wire = wires.pop();
-                JLabel wireImage = wireImages.pop();
+                //JLabel wireImage = wireImages.pop();
 
-                panel2.remove(wire.getWire());
+                
                 wire.object1.component.removeConnection(wire.object2.component);
 
-                panel2.remove(wireImage);
+                //panel2.remove(wireImage);
 
                 panel2.revalidate();
                 panel2.repaint();
@@ -446,7 +458,7 @@ class ComponentHolder{
 class Connection{
     public ComponentHolder object1; 
     public ComponentHolder object2; 
-    public  JLabel wire; 
+    public  Line2D wire; 
 
     public Connection(ComponentHolder o1, ComponentHolder o2){
         object1 = o1;
@@ -454,6 +466,16 @@ class Connection{
     }
 
     public void realizeConnection(JPanel x){
+        Graphics2D g2d = (Graphics2D) x.getGraphics();
+        g2d.setColor(Color.RED);
+        g2d.setStroke(new BasicStroke(5));
+        g2d.setColor(Color.RED);
+        Line2D line = new Line2D.Double(object1.getLabel().getX(), object1.getLabel().getY(), object2.getLabel().getX(), object2.getLabel().getY());
+        wire = line;
+        System.out.println("line" + line.toString());
+        g2d.draw(line);
+        x.repaint();
+        /* 
         wire = new JLabel(new ImageIcon("assets/redWire.png"));
         Insets insets1 = x.getInsets();
         Dimension size1 = wire.getPreferredSize();
@@ -485,18 +507,19 @@ class Connection{
 
         g2d.transform(transform);
         g2d.drawImage(bi, 0, 0, null);
-        System.out.println(g2d.toString());
+       // System.out.println(g2d.toString());
         g2d.dispose();
-        
+       
         ImageIO.write(stretechedImage, "png", new File("assets/transformedFile"+Level2.numOfWires+".png"));
 
 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(wire, "Failed to make a wire image " + e + " " );
     }
+        */
     }
 
-    public JLabel getWire(){
+    public Line2D getWire(){
         return wire; 
     }
 }
