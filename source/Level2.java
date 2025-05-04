@@ -469,10 +469,10 @@ class Connection{
         Graphics2D g2d = (Graphics2D) x.getGraphics();
         g2d.setColor(Color.RED);
         g2d.setStroke(new BasicStroke(5));
-        g2d.setColor(Color.RED);
+        g2d.setColor(Color.RED); // change this line below to change positioning. 
         Line2D line = new Line2D.Double(object1.getLabel().getX(), object1.getLabel().getY(), object2.getLabel().getX(), object2.getLabel().getY());
         wire = line;
-        System.out.println("line" + line.toString());
+        //System.out.println("line" + line.toString());
         g2d.draw(line);
         x.repaint();
         /* 
