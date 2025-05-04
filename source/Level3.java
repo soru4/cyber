@@ -12,6 +12,12 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
     public JTextField textField;
     public JButton button;
     public JButton button2;
+
+    public boolean DMZ = false;
+    public boolean VPN = false;
+    public boolean DHCP = false;
+
+
     Point startPoint;
     private static final int ROWS = 5;
     private static final int COLS = 2;
@@ -75,7 +81,7 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                     centerPanel.removeAll();
                     centerPanel.revalidate();
                     centerPanel.repaint();
-                    JLabel ipLabel = new JLabel("IP Address:" + "10.2.32.23");
+                    JLabel ipLabel = new JLabel("IP Address:" + Level2.world.getIP());
                     ipLabel.setFont(new Font("Arial", Font.BOLD, 24));
 
                     centerPanel.add(ipLabel);
@@ -89,16 +95,17 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         centerPanel.repaint();
                         String connsString = "";
                         ArrayList<ComputerComponent> x2 = allChildComponents(Level2.world);
+                        JLabel ipLabel = new JLabel("Connections:" );
+                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
+                        centerPanel.add(ipLabel);
                         for (ComputerComponent comp : x2) {
-                            connsString += comp.getType() + " \n";
+                           JLabel label = new JLabel(comp.getType() + " IP Address: " + comp.getIP());
+                            label.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
+                            centerPanel.add(label);
+                            connsString += comp.getType() + " IP Address: " + comp.getIP() + "\n";
                         }
 
-                        JLabel ipLabel = new JLabel("Connections: " +  connsString);
-                        
-
-                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24));
-    
-                        centerPanel.add(ipLabel);
+                    
                         System.out.println("Button clicked: " + e.getActionCommand());
                     });
                 } else if(x.getText().equals("DMZ Setup")){
@@ -106,10 +113,18 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         centerPanel.removeAll();
                         centerPanel.revalidate();
                         centerPanel.repaint();
-                        JLabel ipLabel = new JLabel("DMZ Set Up:" +  "Not yet implemented");
+                        JLabel ipLabel = new JLabel("DMZ Set Up:" );
                         ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); 
-    
+                        // create button to set up DMZ
+                        JButton ipButton = new JButton("Set Up DMZ Server and Client");
+                        ipButton.addActionListener((ActionEvent e2) -> {
+                            DMZ = true;
+                        });
+                        ipButton.setFont(new Font("Arial", Font.BOLD, 24));
+                        ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
+                        
                         centerPanel.add(ipLabel);
+                        centerPanel.add(ipButton);
                         System.out.println("Button clicked: " + e.getActionCommand());
                     });
                 } else if(x.getText().equals("Open VPN Setup")){
@@ -124,10 +139,40 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         JButton ipButton = new JButton("Set Up VPN Server and Client");
                         centerPanel.add(ipLabel);
                         centerPanel.add(ipButton);
+                   
+                        JButton tcpButton = new JButton("TCP");
+                        JButton udpButton = new JButton("UDP");
+                  
+                        JTextField portField = new JTextField(10);
+                        JPanel portPanel = new JPanel();
+                        portPanel.add(new JLabel("Port Number:"));
+                        portPanel.add(portField);
+                        centerPanel.add(portPanel);
+                        centerPanel.add(tcpButton);
+                        centerPanel.add(udpButton);
+                       
+                        JTextField subnetField = new JTextField(10);
+                        JPanel subnetPanel = new JPanel();
+                        subnetPanel.add(new JLabel("VPN Subnet Mask:"));
+                        subnetPanel.add(subnetField);
+                        centerPanel.add(subnetPanel);
+                        
                         ipButton.addActionListener((ActionEvent e2) -> {
-                           
-                            System.out.println("VPN Server and Client Set Up");
+
+                            if((tcpButton.isSelected() || udpButton.isSelected()) && !portField.getText().isEmpty() && !subnetField.getText().isEmpty()){
+                                String protocol = tcpButton.isSelected() ? "TCP" : "UDP";
+                                String port = portField.getText();
+                                String subnet = subnetField.getText();
+                                VPN = true;
+                                System.out.println("VPN Server and Client Set Up with Protocol: " + protocol + ", Port: " + port + ", Subnet: " + subnet);
+                                JOptionPane.showMessageDialog(frame, "VPN Server and Client Set Up with Protocol: " + protocol + ", Port: " + port + ", Subnet: " + subnet);
+                            } else {
+                                System.out.println("Please select a protocol (TCP or UDP)");
+                            }
+                            
+                            System.out.println("VPN Server and Client Enable");
                         });
+
                         System.out.println("Button clicked: " + e.getActionCommand());
                     });
         }
@@ -149,10 +194,11 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                 dhcpPanel.add(rangeField);
                 JButton dhcpButton = new JButton("Set Up DHCP Server and Client");
                 dhcpButton.addActionListener((ActionEvent e2) -> {
-                    String clientIp = clientIpField.getText();
-                    String range = rangeField.getText();
-                
-                    System.out.println("DHCP Server and Client Set Up with Client IP: " + clientIp + " and Range: " + range);
+                  if(!clientIpField.getText().isEmpty() && !rangeField.getText().isEmpty())
+                        DHCP = true;
+                    System.out.println("DHCP Server and Client Set Up with Client IP: " + clientIpField.getText() + " and Range: " + rangeField.getText());
+                    JOptionPane.showMessageDialog(frame, "DHCP Server and Client Set Up with Client IP: " + clientIpField.getText() + " and Range: " + rangeField.getText());
+
                 });
                 centerPanel.add(dhcpPanel);
             });
