@@ -117,8 +117,12 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); 
                         // create button to set up DMZ
                         JButton ipButton = new JButton("Set Up DMZ Server and Client");
+                     
+                        ipButton.setSelected(DMZ);
+                        
                         ipButton.addActionListener((ActionEvent e2) -> {
                             DMZ = true;
+                            JOptionPane.showMessageDialog(frame, "DMZ set up");
                         });
                         ipButton.setFont(new Font("Arial", Font.BOLD, 24));
                         ipLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size

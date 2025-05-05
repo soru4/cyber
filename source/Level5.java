@@ -149,7 +149,7 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
 
 }
 
-
+/* 
 class QuestionList{
     public String question;
     public String[] options;
@@ -174,4 +174,7 @@ class QuestionList{
     public JButton[] getOptionsClicked() {
         return optionsClicked;
     }
+    
 }
+
+*/
