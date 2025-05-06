@@ -4,7 +4,7 @@ public class Scenario {
     public String[] companyNames = { "AlphaTech", "BetaSecure", "GammaCorp", "DeltaNet", "EpsilonData",
             "ZetaGuard", "ThetaInfo", "IotaShield", "KappaSafe", "LambdaSecure",
             "OmicronTech", "SigmaNet", "TauData", "UpsilonGuard", "PhiInfo",
-            "ChiShield", "PsiSafe", "OmegaSecure", "NovaTech", "PioneerNet", };
+            "ChiShield", "PsiSafe", "OmegaSecure", "NovaTech", "PioneerNet"};
     public int budget;
     public int workforceSize;
     public String[] securityLevel = { "isolated", "privacy-focused", "informal", "public" }; // isolated means DMZ, VPN,
@@ -28,8 +28,8 @@ public class Scenario {
     // Method to generate a random scenario
     public String getScenario() {
         return String.format(
-                "<html>Hello, engineer! I'm a representative from %s and I need your help!<br>We need YOU to build a %s network to support our workforce of %d people.<br>We are willing to give you a maximum, non-negotiable budget of $%d!<br>I hope to see this network working soon!</html>",
-                currName, securityString, workforceSize, budget);
+                "<html>Hello, engineer! I'm a representative from %s and I need your help!<br>We need YOU to build %s %s network to support our workforce of %d people.<br>We are willing to give you a maximum, non-negotiable budget of $%d!<br>I hope to see this network working soon!</html>",
+                currName, isVowel(securityString) ? "an" : "a", securityString, workforceSize, budget);
     }
 
     public int getBudget() {
@@ -46,5 +46,10 @@ public class Scenario {
 
     public String getCompanyName() {
         return currName;
+    }
+
+    private boolean isVowel(String str) {
+        char ch = str.charAt(0);
+        return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
     }
 }
