@@ -30,3 +30,4 @@ java source/Runner.java
 
 * Make this game have a proper build system (Maven, Gradle, ...)
 * Add a release with the jar
+* Make a Windows wrapper for the jar
