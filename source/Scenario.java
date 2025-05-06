@@ -40,7 +40,7 @@ public class Scenario {
         return workforceSize;
     }
 
-    public String getS_LEVELS() {
+    public String getLevelString() {
         return securityString;
     }
 
