@@ -50,19 +50,19 @@ public class ComputerComponent {
     public boolean addConnection(ComputerComponent component, JFrame frame) {
         if (conn.size() < ports) {
 
-          if(component.isSouthOf(this)){
+            if (component.isSouthOf(this)) {
                 System.out.println("The component is south of the reference component.");
                 JOptionPane.showMessageDialog(frame,
                         "The component is south of the reference component.");
-                component.setIP(getIP()+"/"+((int)((Math.random()*15 )+ 1)));
+                component.setIP(getIP() + "/" + ((int) ((Math.random() * 15) + 1)));
             }
             conn.add(component);
-           
+
             System.out.println("The component is south of the reference component.");
             JOptionPane.showMessageDialog(frame,
-                        "The component is south of the reference component.");
-            component.setIP(getIP()+"/"+((int)((Math.random()*18 )+ 1)));
-        
+                    "The component is south of the reference component.");
+            component.setIP(getIP() + "/" + ((int) ((Math.random() * 18) + 1)));
+
             JOptionPane.showMessageDialog(frame,
                     "Successful Connection between " + this.type + " and " + component.type);
             return true;
@@ -98,21 +98,23 @@ public class ComputerComponent {
      * 
      */
 
-     public boolean isSouthOf(ComputerComponent component){
-        // if this componet is connected to the reference component, then it is south of the reference component.
-        if(component.conn.isEmpty()){
+    public boolean isSouthOf(ComputerComponent component) {
+        // if this componet is connected to the reference component, then it is south of
+        // the reference component.
+        if (component.conn.isEmpty()) {
             return false;
         }
-        for(ComputerComponent c : component.conn){
-            if(c.equals(this)){
+        for (ComputerComponent c : component.conn) {
+            if (c.equals(this)) {
                 return true;
             }
         }
-        for(ComputerComponent c : component.conn){
+        for (ComputerComponent c : component.conn) {
             return isSouthOf(c);
         }
         return false;
-     }
+    }
+
     // recursive method to see if the component have the acceptable connection
     // types.
     public boolean isValidConnection(ComputerComponent component) {
@@ -161,14 +163,14 @@ public class ComputerComponent {
         if (!i.contains("/")) {
             i += "/32";
         }
-        String[] ip = i.substring(0, i.indexOf("/") ).split("\\.");
+        String[] ip = i.substring(0, i.indexOf("/")).split("\\.");
         int range = Integer.parseInt(i.substring(i.indexOf("/") + 1));
         range = 12;
         int[] prefix = new int[4];
         for (int j = 0; j < ip.length; j++) {
             int q = Integer.parseInt(ip[j]);
             if (q < 0 || q > 255) {
-                JOptionPane.showMessageDialog(null , "Invalid IP address. Please enter a valid IP address.");
+                JOptionPane.showMessageDialog(null, "Invalid IP address. Please enter a valid IP address.");
                 return;
             }
             prefix[j] = q;

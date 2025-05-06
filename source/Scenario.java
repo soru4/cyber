@@ -4,19 +4,24 @@ public class Scenario {
     public String[] companyNames = { "AlphaTech", "BetaSecure", "GammaCorp", "DeltaNet", "EpsilonData",
             "ZetaGuard", "ThetaInfo", "IotaShield", "KappaSafe", "LambdaSecure",
             "OmicronTech", "SigmaNet", "TauData", "UpsilonGuard", "PhiInfo",
-            "ChiShield", "PsiSafe", "OmegaSecure", "NovaTech", "PioneerNet",  };
+            "ChiShield", "PsiSafe", "OmegaSecure", "NovaTech", "PioneerNet", };
     public int budget;
     public int workforceSize;
-    public String[] securityLevel = { "isolated", "privacy-focused", "informal", "public" }; // isolated means DMZ, VPN, DHCP. privacy focused means DMZ and DHCP. informal means DHCP. public means nothing perse. 
-        public String currName;
+    public String[] securityLevel = { "isolated", "privacy-focused", "informal", "public" }; // isolated means DMZ, VPN,
+                                                                                             // DHCP. privacy focused
+                                                                                             // means DMZ and DHCP.
+                                                                                             // informal means DHCP.
+                                                                                             // public means nothing
+                                                                                             // perse.
+    public String currName;
     public String securityString;
 
     public Scenario() {
         // Constructor to initialize the scenario generation
         this.currName = companyNames[((int) (Math.random() * companyNames.length))];
-        
+
         this.workforceSize = (int) (Math.random() * 6) + 1;
-        this.budget = (int) (Math.random() * 14000) + (2200 * workforceSize); 
+        this.budget = (int) (Math.random() * 14000) + (2200 * workforceSize);
         this.securityString = securityLevel[(int) (Math.random() * securityLevel.length)];
     }
 

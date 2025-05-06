@@ -15,17 +15,21 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
     Point startPoint;
     private static final int ROWS = 4;
     private static final int COLS = 2;
-    public int score =0;
+    public int score = 0;
     public ArrayList<QuestionList> questions = new ArrayList<QuestionList>();
 
-
-    
     public Level5() {
-        questions.add(new QuestionList("Which layer of the TCP/IP model is responsible for ensuring packets are sent reliably and any missing packets are resent?", new String[] { "OSI", "network layer", "transport layer", "application" }, "transport layer"));
-        questions.add(new QuestionList("Which type of applications are best suited to use UDP as the transport layer protocol?", new String[] { "low transport delay", "network layer", "transport layer", "high transport delay" }, "low transport delay"));
-        questions.add(new QuestionList("Which of the following is not a valid TCP state?", new String[] { "SYN_SENT", "SYN_RECEIVED", "SYN_ACK", "ESTABLISHED" }, "SYN_ACK"));
-        questions.add(new QuestionList("Which port number is used by HTTP?", new String[] { "Port 23", "Port 80", "Port 53", "Port 110" }, "Port 80"));
-
+        questions.add(new QuestionList(
+                "Which layer of the TCP/IP model is responsible for ensuring packets are sent reliably and any missing packets are resent?",
+                new String[] { "OSI", "network layer", "transport layer", "application" }, "transport layer"));
+        questions.add(new QuestionList(
+                "Which type of applications are best suited to use UDP as the transport layer protocol?",
+                new String[] { "low transport delay", "network layer", "transport layer", "high transport delay" },
+                "low transport delay"));
+        questions.add(new QuestionList("Which of the following is not a valid TCP state?",
+                new String[] { "SYN_SENT", "SYN_RECEIVED", "SYN_ACK", "ESTABLISHED" }, "SYN_ACK"));
+        questions.add(new QuestionList("Which port number is used by HTTP?",
+                new String[] { "Port 23", "Port 80", "Port 53", "Port 110" }, "Port 80"));
 
         init();
     }
@@ -41,7 +45,6 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(1, 1));
-        
 
         JPanel topPanel = new JPanel(true);
         JLabel topLabel = new JLabel("Level Five");
@@ -53,7 +56,7 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
         frame.add(topPanel, BorderLayout.NORTH);
 
         JPanel centerPanel = new JPanel();
-        for(QuestionList q : questions) {
+        for (QuestionList q : questions) {
             JPanel questionPanel = new JPanel(new GridLayout(1, 1));
             JLabel questionLabel = new JLabel(q.getQuestion());
             questionLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
@@ -62,7 +65,7 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
             questionPanel.setSize(1920, 100); // set the size of the top panel
             questionPanel.setBackground(Color.GRAY);
             centerPanel.add(questionPanel);
-            
+
             JPanel optionsPanel = new JPanel(new GridLayout(1, 1));
             for (String option : q.getOptions()) {
                 JButton optionButton = new JButton(option);
@@ -71,8 +74,8 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
                     if (option.equals(q.getCorrectString())) {
                         score++;
                         JOptionPane.showMessageDialog(frame, "Correct! Your score is: " + score);
-                        if(score==3){
-                            //new Level2(); // Assuming Level1 is the next level
+                        if (score == 3) {
+                            // new Level2(); // Assuming Level1 is the next level
                             frame.dispose();
                         }
                     } else {
@@ -81,10 +84,9 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
                 });
                 centerPanel.add(optionButton);
             }
-  
+
         }
         frame.add(centerPanel, BorderLayout.CENTER);
-
 
         updateFrame(frame);
     }
@@ -149,32 +151,33 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
 
 }
 
-/* 
-class QuestionList{
-    public String question;
-    public String[] options;
-    public JButton[] optionsClicked;
-    public String correctString;
-    
-    public QuestionList(String question, String[] options, String correctString) {
-        this.question = question;
-        this.options = options;
-        this.correctString = correctString;
-        this.optionsClicked = new JButton[options.length];
-    }
-    public String getQuestion() {
-        return question;
-    }
-    public String[] getOptions() {
-        return options;
-    }
-    public String getCorrectString() {
-        return correctString;
-    }
-    public JButton[] getOptionsClicked() {
-        return optionsClicked;
-    }
-    
-}
-
-*/
+/*
+ * class QuestionList{
+ * public String question;
+ * public String[] options;
+ * public JButton[] optionsClicked;
+ * public String correctString;
+ * 
+ * public QuestionList(String question, String[] options, String correctString)
+ * {
+ * this.question = question;
+ * this.options = options;
+ * this.correctString = correctString;
+ * this.optionsClicked = new JButton[options.length];
+ * }
+ * public String getQuestion() {
+ * return question;
+ * }
+ * public String[] getOptions() {
+ * return options;
+ * }
+ * public String getCorrectString() {
+ * return correctString;
+ * }
+ * public JButton[] getOptionsClicked() {
+ * return optionsClicked;
+ * }
+ * 
+ * }
+ * 
+ */

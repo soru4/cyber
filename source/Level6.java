@@ -15,11 +15,9 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
     Point startPoint;
     private static final int ROWS = 4;
     private static final int COLS = 2;
-    public int score =0;
+    public int score = 0;
     public ArrayList<Cipher> cipher = new ArrayList<Cipher>();
 
-
-    
     public Level6() {
 
         init();
@@ -36,7 +34,6 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
         frame.setSize(1920, 1080);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(1, 1));
-        
 
         JPanel topPanel = new JPanel(true);
         JLabel topLabel = new JLabel("Level Six");
@@ -50,12 +47,8 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
         JPanel centerPanel = new JPanel();
         JTextField textField = new JTextField(20);
         questions(centerPanel, textField);
-       
-
-       
 
         frame.add(centerPanel, BorderLayout.CENTER);
-
 
         updateFrame(frame);
     }
@@ -63,8 +56,9 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
     private void questions(JPanel centerPanel, JTextField textField1) {
         if (score == 0) {
             Cipher c = new Cipher("Trains are the best mode of transport", "", 3);
-            c.encrypt(c.getPlainText(), (int)(Math.random() * 26)+1);
-            JLabel questionLabel = new JLabel("Decrypt the cipher:  " + c.getCipherText() + " Which has a shift of: " + c.getShift());
+            c.encrypt(c.getPlainText(), (int) (Math.random() * 26) + 1);
+            JLabel questionLabel = new JLabel(
+                    "Decrypt the cipher:  " + c.getCipherText() + " Which has a shift of: " + c.getShift());
             questionLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
             JButton button = new JButton("Submit");
             centerPanel.add(questionLabel);
@@ -81,7 +75,7 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
                     score++;
                     questions(centerPanel, textField1);
                     JOptionPane.showMessageDialog(frame, "Correct!");
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(frame, "Incorrect! The correct answer is: " + c.getPlainText());
                 }
@@ -89,8 +83,9 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
         }
         if (score == 1) {
             Cipher c = new Cipher("The quick brown fox jumps over the lazy dog", "", 3);
-            c.encrypt(c.getPlainText(), (int)(Math.random() * 26)+1);
-            JLabel questionLabel = new JLabel("Decrypt the cipher:  " + c.getCipherText() + " Which has a shift of: " + c.getShift());
+            c.encrypt(c.getPlainText(), (int) (Math.random() * 26) + 1);
+            JLabel questionLabel = new JLabel(
+                    "Decrypt the cipher:  " + c.getCipherText() + " Which has a shift of: " + c.getShift());
             questionLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
             JButton button = new JButton("Submit");
             centerPanel.add(questionLabel);
@@ -107,7 +102,7 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
                     score++;
                     questions(centerPanel, textField1);
                     JOptionPane.showMessageDialog(frame, "Correct!");
-                    
+
                 } else {
                     JOptionPane.showMessageDialog(frame, "Incorrect! The correct answer is: " + c.getPlainText());
                 }
@@ -115,8 +110,9 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
         }
         if (score == 2) {
             Cipher c = new Cipher("The only way to do great work is to love what you do", "", 3);
-            c.encrypt(c.getPlainText(), (int)(Math.random() * 26)+1);
-            JLabel questionLabel = new JLabel("Decrypt the cipher:  " + c.getCipherText() + " Which has a shift of: " + c.getShift());
+            c.encrypt(c.getPlainText(), (int) (Math.random() * 26) + 1);
+            JLabel questionLabel = new JLabel(
+                    "Decrypt the cipher:  " + c.getCipherText() + " Which has a shift of: " + c.getShift());
             questionLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
             JButton button = new JButton("Submit");
             button.addActionListener((ActionEvent e) -> {
@@ -133,14 +129,14 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
                     score++;
                     questions(centerPanel, textField1);
                     JOptionPane.showMessageDialog(frame, "Correct!");
-                   
+
                 } else {
                     JOptionPane.showMessageDialog(frame, "Incorrect! The correct answer is: " + c.getPlainText());
                 }
             });
         }
-        if(score == 3){
-            //end game
+        if (score == 3) {
+            // end game
         }
     }
 
@@ -195,7 +191,7 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
         }
 
     }
-    
+
     @Override
     public void mouseMoved(MouseEvent e) {
         // TODO Auto-generated method stub
@@ -204,26 +200,29 @@ public class Level6 implements ActionListener, MouseListener, MouseMotionListene
 
 }
 
-
-class Cipher{
-    public String plainText; 
-    public String cipherText; 
-    public int shift; 
+class Cipher {
+    public String plainText;
+    public String cipherText;
+    public int shift;
 
     public String getPlainText() {
         return plainText;
     }
+
     public String getCipherText() {
         return cipherText;
     }
+
     public int getShift() {
         return shift;
     }
+
     public Cipher(String plainText, String cipherText, int shift) {
         this.plainText = plainText;
         this.cipherText = cipherText;
         this.shift = shift;
     }
+
     public String encrypt(String plainText, int shift) {
         StringBuilder encryptedText = new StringBuilder();
         this.shift = shift;
