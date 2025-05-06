@@ -25,3 +25,8 @@ java source/Runner.java
 4. Answer questions based on the OSI model
 5. Same as 4
 6. Answer some cryptographic questions to set up security features
+
+## TODO
+
+* Make this game have a proper build system (Maven, Gradle, ...)
+* Add a release with the jar
