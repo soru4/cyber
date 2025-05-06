@@ -1,13 +1,13 @@
 
 public class Scenario {
 
-    public String[] companyNames = { "AlphaTech", "BetaSecure", "GammaCorp", "DeltaNet", "EpsilonData",
+    private final String[] C_NAMES = { "AlphaTech", "BetaSecure", "GammaCorp", "DeltaNet", "EpsilonData",
             "ZetaGuard", "ThetaInfo", "IotaShield", "KappaSafe", "LambdaSecure",
             "OmicronTech", "SigmaNet", "TauData", "UpsilonGuard", "PhiInfo",
             "ChiShield", "PsiSafe", "OmegaSecure", "NovaTech", "PioneerNet"};
     public int budget;
     public int workforceSize;
-    public String[] securityLevel = { "isolated", "privacy-focused", "informal", "public" }; // isolated means DMZ, VPN,
+    private final String[] S_LEVELS = { "isolated", "privacy-focused", "informal", "public" }; // isolated means DMZ, VPN,
                                                                                              // DHCP. privacy focused
                                                                                              // means DMZ and DHCP.
                                                                                              // informal means DHCP.
@@ -18,11 +18,11 @@ public class Scenario {
 
     public Scenario() {
         // Constructor to initialize the scenario generation
-        this.currName = companyNames[((int) (Math.random() * companyNames.length))];
+        this.currName = C_NAMES[((int) (Math.random() * C_NAMES.length))];
 
         this.workforceSize = (int) (Math.random() * 6) + 1;
         this.budget = (int) (Math.random() * 14000) + (2200 * workforceSize);
-        this.securityString = securityLevel[(int) (Math.random() * securityLevel.length)];
+        this.securityString = S_LEVELS[(int) (Math.random() * S_LEVELS.length)];
     }
 
     // Method to generate a random scenario
@@ -40,7 +40,7 @@ public class Scenario {
         return workforceSize;
     }
 
-    public String getSecurityLevel() {
+    public String getS_LEVELS() {
         return securityString;
     }
 
