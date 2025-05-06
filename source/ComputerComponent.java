@@ -59,8 +59,7 @@ public class ComputerComponent {
             conn.add(component);
 
             System.out.println("The component is south of the reference component.");
-            JOptionPane.showMessageDialog(frame,
-                    "The component is south of the reference component.");
+           
             component.setIP(getIP() + "/" + ((int) ((Math.random() * 18) + 1)));
 
             JOptionPane.showMessageDialog(frame,

@@ -106,7 +106,7 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
                         centerPanel.add(label);
                         connsString += comp.getType() + " IP Address: " + comp.getIP() + "\n";
                     }
-
+                
                     System.out.println("Button clicked: " + e.getActionCommand());
                 });
             } else if (x.getText().equals("DMZ Setup")) {
