@@ -127,7 +127,7 @@ public class ComputerComponent {
             }
         }
         for (ComputerComponent c : startingComponent.conn) {
-            return isSouthOf(c);
+            return isTypeSouthOf(c,type);
         }
         return false;
     }
