@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class Level6 implements ActionListener, MouseListener, MouseMotionListener {
+public class Level6 extends Level implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;

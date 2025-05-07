@@ -12,7 +12,7 @@ import javax.swing.WindowConstants;
 import java.awt.*;
 import java.awt.event.*;
 
-public class Level1 implements ActionListener, MouseListener, MouseMotionListener {
+public class Level1 extends Level implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;
@@ -151,7 +151,7 @@ public class Level1 implements ActionListener, MouseListener, MouseMotionListene
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (cart.size() >= 1 && budget >= 0) {
-                    new Level2(cart);
+                   Scene.allLevelInstances.add( new Level2(cart));
                     frame.dispose();
                 } else {
                     JOptionPane.showMessageDialog(frame, "Empty cart or over budget");

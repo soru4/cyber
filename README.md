@@ -1,10 +1,10 @@
 # Cybersecurity Capstone final project
 
-A game for the Cybersecurity Capstone class made with Swing.
+A game for the Cybersecurity Capstone class made with Java Swing.
 
 ## Authors
 
-* Sohun Tambe (@soru4)
+* Sohun Tambe (@soru4) - Level2, Level 3, Level 4, Level 5, Level 6, Scenario, ComputerComponent recursive checkers, Scene.
 * Leonid Lednev (@leonidlednev2) - Level0, Level1, ComputerComponent
 * Brandon Wright (@EnderTheWigg)
 
@@ -27,7 +27,7 @@ java source/Runner.java
 6. Answer some cryptographic questions to set up security features
 
 ## TODO
-
+* Create Level 7. (Type in a url and the game plays an animation going back through everything that you did)
 * Make this game have a proper build system (Maven, Gradle, ...)
 * Add a release with the jar
 * Make a Windows wrapper for the jar

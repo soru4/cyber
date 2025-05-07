@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class Level3 implements ActionListener, MouseListener, MouseMotionListener {
+public class Level3 extends Level implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;
@@ -44,20 +44,32 @@ public class Level3 implements ActionListener, MouseListener, MouseMotionListene
         JPanel topPanel = new JPanel(true);
         JLabel topLabel = new JLabel("IP Router Settings: ");
         JButton topButton = new JButton("Check");
+        JButton topButton1 = new JButton("Check Senario");
+        topButton1.addActionListener((ActionEvent e) ->{
+            JOptionPane.showMessageDialog(frame, Level1.build.getScenario());
+        });
         topButton.addActionListener((ActionEvent e) -> {
             if (Level1.build.securityString.equals("isolated")) {
-                JOptionPane.showMessageDialog(frame,
-                        "You have not set up the DMZ yet. Please do so before checking the router settings.");
+              if(DMZ && DHCP && VPN ){
+                frame.dispose();
+                Scene.allLevelInstances.add(new Level4());
+              }
             } else if (Level1.build.securityString.equals("privacy-focused")) {
-                JOptionPane.showMessageDialog(frame,
-                        "You have not set up the VPN yet. Please do so before checking the router settings.");
+                if(VPN && DHCP){
+                    frame.dispose();
+                    Scene.allLevelInstances.add(new Level4());
+                }
             } else if (Level1.build.securityString.equals("informal")) {
-                JOptionPane.showMessageDialog(frame,
-                        "You have not set up the DHCP yet. Please do so before checking the router settings.");
+                if( DHCP){
+                    frame.dispose();
+                    Scene.allLevelInstances.add(new Level4());
+                }
             } else {
-                new Level4();
+                frame.dispose();
+                Scene.allLevelInstances.add(new Level4());
             }
         });
+        topPanel.add(topButton1);
         topPanel.add(topButton);
         topLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
         topLabel.setForeground(Color.WHITE); // set the font color

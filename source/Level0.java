@@ -1,3 +1,5 @@
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -5,10 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import java.awt.*;
-import java.awt.event.*;
-
-public class Level0 implements ActionListener, MouseListener, MouseMotionListener {
+public class Level0 extends Level implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;
@@ -38,7 +37,7 @@ public class Level0 implements ActionListener, MouseListener, MouseMotionListene
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new Level1(scenario);
+                Scene.allLevelInstances.add(new Level1(scenario));
                 frame.dispose();
             }
         });

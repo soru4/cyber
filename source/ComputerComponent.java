@@ -114,6 +114,24 @@ public class ComputerComponent {
         return false;
     }
 
+
+    public boolean isTypeSouthOf(ComputerComponent startingComponent, String type) {
+        // if this componet is connected to the reference component, then it is south of
+        // the reference component.
+        if (startingComponent.conn.isEmpty()) {
+            return false;
+        }
+        for (ComputerComponent c : startingComponent.conn) {
+            if (c.getType().equals(type)) {
+                return true;
+            }
+        }
+        for (ComputerComponent c : startingComponent.conn) {
+            return isSouthOf(c);
+        }
+        return false;
+    }
+
     // recursive method to see if the component have the acceptable connection
     // types.
     public boolean isValidConnection(ComputerComponent component) {

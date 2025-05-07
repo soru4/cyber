@@ -1,9 +1,10 @@
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class Level5 implements ActionListener, MouseListener, MouseMotionListener {
+public class Level5 extends Level implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;
@@ -21,15 +22,15 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
     public Level5() {
         questions.add(new QuestionList(
                 "Which layer of the TCP/IP model is responsible for ensuring packets are sent reliably and any missing packets are resent?",
-                new String[] { "OSI", "network layer", "transport layer", "application" }, "transport layer"));
+                new String[]{"OSI", "network layer", "transport layer", "application"}, "transport layer"));
         questions.add(new QuestionList(
                 "Which type of applications are best suited to use UDP as the transport layer protocol?",
-                new String[] { "low transport delay", "network layer", "transport layer", "high transport delay" },
+                new String[]{"low transport delay", "network layer", "transport layer", "high transport delay"},
                 "low transport delay"));
         questions.add(new QuestionList("Which of the following is not a valid TCP state?",
-                new String[] { "SYN_SENT", "SYN_RECEIVED", "SYN_ACK", "ESTABLISHED" }, "SYN_ACK"));
+                new String[]{"SYN_SENT", "SYN_RECEIVED", "SYN_ACK", "ESTABLISHED"}, "SYN_ACK"));
         questions.add(new QuestionList("Which port number is used by HTTP?",
-                new String[] { "Port 23", "Port 80", "Port 53", "Port 110" }, "Port 80"));
+                new String[]{"Port 23", "Port 80", "Port 53", "Port 110"}, "Port 80"));
 
         init();
     }
@@ -74,9 +75,10 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
                     if (option.equals(q.getCorrectString())) {
                         score++;
                         JOptionPane.showMessageDialog(frame, "Correct! Your score is: " + score);
-                        if (score == 3) {
+                        if (score >= questions.size()) {
                             // new Level2(); // Assuming Level1 is the next level
                             frame.dispose();
+                            Scene.allLevelInstances.add(new Level6());
                         }
                     } else {
                         JOptionPane.showMessageDialog(frame, "Incorrect! Your score is: " + score);
@@ -151,33 +153,3 @@ public class Level5 implements ActionListener, MouseListener, MouseMotionListene
 
 }
 
-/*
- * class QuestionList{
- * public String question;
- * public String[] options;
- * public JButton[] optionsClicked;
- * public String correctString;
- * 
- * public QuestionList(String question, String[] options, String correctString)
- * {
- * this.question = question;
- * this.options = options;
- * this.correctString = correctString;
- * this.optionsClicked = new JButton[options.length];
- * }
- * public String getQuestion() {
- * return question;
- * }
- * public String[] getOptions() {
- * return options;
- * }
- * public String getCorrectString() {
- * return correctString;
- * }
- * public JButton[] getOptionsClicked() {
- * return optionsClicked;
- * }
- * 
- * }
- * 
- */

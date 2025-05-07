@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class Level4 implements ActionListener, MouseListener, MouseMotionListener {
+public class Level4 extends Level implements ActionListener, MouseListener, MouseMotionListener {
 
     public JFrame frame;
     public JPanel panel;
@@ -83,7 +83,8 @@ public class Level4 implements ActionListener, MouseListener, MouseMotionListene
                         score++;
                         JOptionPane.showMessageDialog(frame, "Correct! Your score is: " + score);
                         if (score == 3) {
-                            new Level5(); // Assuming Level1 is the next level
+                            frame.dispose();
+                            Scene.allLevelInstances.add(new Level5()); // Assuming Level1 is the next level
                         }
                     } else {
                         JOptionPane.showMessageDialog(frame, "Incorrect! Your score is: " + score);
@@ -156,34 +157,4 @@ public class Level4 implements ActionListener, MouseListener, MouseMotionListene
         // throw new UnsupportedOperationException("Unimplemented method 'mouseMoved'");
     }
 
-}
-
-class QuestionList {
-    public String question;
-    public String[] options;
-    public JButton[] optionsClicked;
-    public String correctString;
-
-    public QuestionList(String question, String[] options, String correctString) {
-        this.question = question;
-        this.options = options;
-        this.correctString = correctString;
-        this.optionsClicked = new JButton[options.length];
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public String[] getOptions() {
-        return options;
-    }
-
-    public String getCorrectString() {
-        return correctString;
-    }
-
-    public JButton[] getOptionsClicked() {
-        return optionsClicked;
-    }
 }

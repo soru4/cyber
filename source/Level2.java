@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
@@ -5,7 +6,7 @@ import java.io.File;
 import java.util.*;
 import javax.swing.*;
 
-public class Level2 implements ActionListener, MouseListener, MouseMotionListener {
+public class Level2 extends Level implements ActionListener, MouseListener, MouseMotionListener {
 
     public static JFrame frame;
     Point startPoint;
@@ -55,7 +56,10 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 
         JPanel panel = new JPanel(); // panel kinda like <View>.
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
-
+        JButton topButton1 = new JButton("Check Senario");
+        topButton1.addActionListener((ActionEvent e) -> {
+            JOptionPane.showMessageDialog(frame, Level1.build.getScenario());
+        });
         JPanel panel2 = new JPanel() {
             @Override
             public void paintComponent(Graphics g) {
@@ -111,17 +115,63 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
             }
 
             if (world.CheckConnection() && computer >= Level1.build.getWorkforceSize()) {
-                JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
-                for (int i = 0; i <= numOfWires; i++) {
-                    File myObj = new File("assets/transformedFile" + i + ".png");
-                    if (myObj.delete()) {
-                        System.out.println("Deleted the file: " + myObj.getName());
-                    } else {
-                        System.out.println("Failed to delete the file.");
+
+                if (Level1.build.securityString.equals("isolated") && world.isTypeSouthOf(world, "Router") && world.isTypeSouthOf(world, "Server")) {
+                    JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
+                    for (int i = 0; i <= numOfWires; i++) {
+                        File myObj = new File("assets/transformedFile" + i + ".png");
+                        if (myObj.delete()) {
+                            System.out.println("Deleted the file: " + myObj.getName());
+                        } else {
+                            System.out.println("Failed to delete the file.");
+                        }
                     }
-                }
-                frame.dispose();
-                new Level3();
+                    frame.dispose();
+                    Scene.allLevelInstances.add(new Level3());
+                } else if (Level1.build.securityString.equals("privacy-focused") && world.isTypeSouthOf(world, "Router") && world.isTypeSouthOf(world, "Server")) {
+
+
+             
+                        JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
+                        for (int i = 0; i <= numOfWires; i++) {
+                            File myObj = new File("assets/transformedFile" + i + ".png");
+                            if (myObj.delete()) {
+                                System.out.println("Deleted the file: " + myObj.getName());
+                            } else {
+                                System.out.println("Failed to delete the file.");
+                            }
+                        }
+                        frame.dispose();
+                        Scene.allLevelInstances.add(new Level3());
+                    
+                    } else if (Level1.build.securityString.equals("informal") && world.isTypeSouthOf(world, "Router")) {
+                        JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
+                        for (int i = 0; i <= numOfWires; i++) {
+                            File myObj = new File("assets/transformedFile" + i + ".png");
+                            if (myObj.delete()) {
+                                System.out.println("Deleted the file: " + myObj.getName());
+                            } else {
+                                System.out.println("Failed to delete the file.");
+                            }
+                        }
+                        frame.dispose();
+                        Scene.allLevelInstances.add(new Level3());
+                    } else if (Level1.build.securityString.equals("public")) {
+                        JOptionPane.showMessageDialog(frame, "All connections in your world are valid!!");
+                        for (int i = 0; i <= numOfWires; i++) {
+                            File myObj = new File("assets/transformedFile" + i + ".png");
+                            if (myObj.delete()) {
+                                System.out.println("Deleted the file: " + myObj.getName());
+                            } else {
+                                System.out.println("Failed to delete the file.");
+                            }
+                        }
+                        frame.dispose();
+                        Scene.allLevelInstances.add(new Level3());
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "You cannot achive the desired network security level with your current connections and or components. Make sure everything is connected properly or restart the game");
+                    }
+                
             } else {
                 JOptionPane.showMessageDialog(frame,
                         "You have one or more invalid connections in your world or you dont have enough computers. Please check your connections and try again! You are bad!");
@@ -201,8 +251,8 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
     public void populateComponentList(ArrayList<ComputerComponent> cart, JPanel panel) {
 
         world = new ComputerComponent(0, "World", 1);
-        world.setIP("192.168.10.1/32");
-        ImageIcon imageIcon1 = new ImageIcon("assets/75519.png");
+        world.setIP("192.16.0.1/32");
+        ImageIcon imageIcon1 = new ImageIcon("assets/World.png");
         JLabel instanceLabel1 = new JLabel(imageIcon1);
         holders.add(new ComponentHolder(world, instanceLabel1));
         components.add(instanceLabel1);
@@ -287,11 +337,14 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
             for (ComponentHolder x : holders) {
                 if (x.label == (JLabel) (e.getComponent())) {
                     boolean doesContain = false;
-                    for (ComponentHolder y : recentlyClicked)
-                        if (y == x)
+                    for (ComponentHolder y : recentlyClicked) {
+                        if (y == x) {
                             doesContain = true;
-                    if (!doesContain)
+                        }
+                    }
+                    if (!doesContain) {
                         recentlyClicked.add(x);
+                    }
                 }
             } // make component in recently clicked have a background
 
@@ -389,6 +442,7 @@ public class Level2 implements ActionListener, MouseListener, MouseMotionListene
 }
 
 class ComponentHolder {
+
     public ComputerComponent component;
     public JLabel label;
 
@@ -409,6 +463,7 @@ class ComponentHolder {
 }
 
 class Connection {
+
     public ComponentHolder object1;
     public ComponentHolder object2;
     public Line2D wire;
