@@ -1,3 +1,5 @@
+package source;
+
 
 
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             public void actionPerformed(ActionEvent e) {
                 budget -= COMPUTER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(new ComputerComponent(1000, "Computer", 1, "assets/PC.png"));
+                cart.add(new ComputerComponent(1000, "Computer", 1, getClass().getClassLoader().getResource("assets/PC.png").getPath()));
                 addComputer.setText(
                         String.format("Computer ($%d, %d in cart)", COMPUTER.getPrice(),
                                 countComponents(COMPUTER.getType())));
@@ -79,7 +81,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             public void actionPerformed(ActionEvent e) {
                 budget -= SERVER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(new ComputerComponent(2000, "Server", 2, "assets/Server.png"));
+                cart.add(new ComputerComponent(2000, "Server", 2, getClass().getClassLoader().getResource("assets/Server.png").getPath()));
                 addServer.setText(
                         String.format("Server ($%d, %d in cart)", SERVER.getPrice(),
                                 countComponents(SERVER.getType())));
@@ -95,7 +97,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             public void actionPerformed(ActionEvent e) {
                 budget -= ROUTER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(new ComputerComponent(100, "Router", 5, "assets/Router.png"));
+                cart.add(new ComputerComponent(100, "Router", 5,  getClass().getClassLoader().getResource("assets/Router.png").getPath()));
                 addRouter.setText(
                         String.format("Router ($%d, %d in cart)", ROUTER.getPrice(),
                                 countComponents(ROUTER.getType())));
@@ -111,7 +113,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             public void actionPerformed(ActionEvent e) {
                 budget -= C_SWITCH.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(new ComputerComponent(300, "Switch", 20, "assets/Switch.png"));
+                cart.add(new ComputerComponent(300, "Switch", 20,  getClass().getClassLoader().getResource("assets/Switch.png").getPath()));
                 addSwitch.setText(
                         String.format("Switch ($%d, %d in cart)", C_SWITCH.getPrice(),
                                 countComponents(C_SWITCH.getType())));

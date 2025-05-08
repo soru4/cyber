@@ -1,3 +1,5 @@
+package source;
+
 
 
 import java.awt.*;
@@ -253,7 +255,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
 
         world = new ComputerComponent(0, "World", 1);
         world.setIP("192.16.0.1/32");
-        ImageIcon imageIcon1 = new ImageIcon("assets/World.png");
+        ImageIcon imageIcon1 = new ImageIcon(getClass().getClassLoader().getResource("assets/World.png"));
         JLabel instanceLabel1 = new JLabel(imageIcon1);
         holders.add(new ComponentHolder(world, instanceLabel1));
         components.add(instanceLabel1);
@@ -267,7 +269,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
         for (ComputerComponent c : cart) {
             if (c.getType().equals("Computer")) {
 
-                ImageIcon imageIcon = new ImageIcon("assets/PC.png");
+                ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource("assets/PC.png"));
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -280,7 +282,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
                 Dimension size = instanceLabel.getPreferredSize();
                 instanceLabel.setBounds(25 + insets.left, 5 + insets.top, size.width, size.height);
             } else if (c.getType().equals("Server")) {
-                ImageIcon imageIcon = new ImageIcon("assets/Server.png");
+                ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource("assets/Server.png"));
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -293,7 +295,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
                 Dimension size = instanceLabel.getPreferredSize();
                 instanceLabel.setBounds(25 + insets.left, 5 + insets.top, size.width, size.height);
             } else if (c.getType().equals("Router")) {
-                ImageIcon imageIcon = new ImageIcon("assets/Router.png");
+                ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource("assets/Router.png"));
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
@@ -306,7 +308,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
                 Dimension size = instanceLabel.getPreferredSize();
                 instanceLabel.setBounds(25 + insets.left, 5 + insets.top, size.width, size.height);
             } else if (c.getType().equals("Switch")) {
-                ImageIcon imageIcon = new ImageIcon("assets/Switch.png");
+                ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource("assets/Switch.png"));
                 JLabel instanceLabel = new JLabel(imageIcon);
                 holders.add(new ComponentHolder(c, instanceLabel));
                 components.add(instanceLabel);
