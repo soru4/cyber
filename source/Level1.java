@@ -60,7 +60,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             public void actionPerformed(ActionEvent e) {
                 budget -= COMPUTER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(COMPUTER);
+                cart.add(new ComputerComponent(1000, "Computer", 1, "assets/PC.png"));
                 addComputer.setText(
                         String.format("Computer ($%d, %d in cart)", COMPUTER.getPrice(),
                                 countComponents(COMPUTER.getType())));
@@ -79,7 +79,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             public void actionPerformed(ActionEvent e) {
                 budget -= SERVER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(SERVER);
+                cart.add(new ComputerComponent(2000, "Server", 2, "assets/Server.png"));
                 addServer.setText(
                         String.format("Server ($%d, %d in cart)", SERVER.getPrice(),
                                 countComponents(SERVER.getType())));
@@ -95,7 +95,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             public void actionPerformed(ActionEvent e) {
                 budget -= ROUTER.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(ROUTER);
+                cart.add(new ComputerComponent(100, "Router", 5, "assets/Router.png"));
                 addRouter.setText(
                         String.format("Router ($%d, %d in cart)", ROUTER.getPrice(),
                                 countComponents(ROUTER.getType())));
@@ -111,7 +111,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             public void actionPerformed(ActionEvent e) {
                 budget -= C_SWITCH.getPrice();
                 label.setText(String.valueOf(budget));
-                cart.add(C_SWITCH);
+                cart.add(new ComputerComponent(300, "Switch", 20, "assets/Switch.png"));
                 addSwitch.setText(
                         String.format("Switch ($%d, %d in cart)", C_SWITCH.getPrice(),
                                 countComponents(C_SWITCH.getType())));
