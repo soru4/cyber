@@ -21,14 +21,16 @@ java source/Runner.java
 0. The game will generate a scenario, including the budget, workforce, and network type.
 1. Buy routers, PCs, servers, and switches from the store based on the scenario given
 2. Connect the components together given the following rules:
+   * Turn on build mode to start connecting components
    * Internet (1 "port") can only be connected to the router (5 ports)
    * Routers can be connected to switches (20 ports) and servers (2 ports)
    * Switches can be connected to PCs (1 port) and servers
    * All components must be connected to each other
 3. Configure network IPs
-4. Answer questions based on the OSI model
-5. Same as 4
-6. Answer some cryptographic questions to set up security features
+4. Answer questions based on the OSI model to continue setting up the network
+5. Same as 4, but will set up security features instead
+6. Answer some cryptographic questions to test the network's security
+7. Test the network (not done)
 
 ## TODO
 
