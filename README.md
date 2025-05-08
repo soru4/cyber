@@ -6,7 +6,7 @@ A game for the Cybersecurity Capstone class made with Java Swing.
 
 * Sohun Tambe (@soru4) - Level2, Level 3, Level 4, Level 5, Level 6, Scenario, ComputerComponent recursive checkers, Scene.
 * Leonid Lednev (@leonidlednev2) - Level0, Level1, ComputerComponent
-* Brandon Wright (@EnderTheWigg)
+* Brandon Wright (@EnderTheWigg) - Level 2, Game Framework, Logic, Level 4, Level 5.
 
 Licensed under the MIT.
 

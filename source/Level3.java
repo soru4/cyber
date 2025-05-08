@@ -202,21 +202,14 @@ public class Level3 extends Level implements ActionListener, MouseListener, Mous
 
                     ipButton.addActionListener((ActionEvent e2) -> {
 
-                        if ((tcpButton.isSelected() ) && !portField.getText().isEmpty() && !subnetField.getText().isEmpty()) {
                             this.port = portField.getText();
                             this.VPNsubnet = subnetField.getText();
                            
                             VPN = true;
                            
-                        } else if ((udpButton.isSelected() ) && !portField.getText().isEmpty() && !subnetField.getText().isEmpty()) {
-                            this.port = portField.getText();
-                            this.VPNsubnet = subnetField.getText();
-                           
-                            VPN = true;
-                           
-                        } else {
+                       
                             System.out.println("Please select a protocol (TCP or UDP)");
-                        }
+                        
 
                         System.out.println("VPN Server and Client Enable");
                     });
@@ -250,17 +243,18 @@ public class Level3 extends Level implements ActionListener, MouseListener, Mous
                     dhcpPanel.add(rangeField);
                     JButton dhcpButton = new JButton("Set Up DHCP Server and Client");
                     dhcpButton.addActionListener((ActionEvent e2) -> {
-                        if (!clientIpField.getText().isEmpty() && !rangeField.getText().isEmpty()){
+                      
                             ipString = clientIpField.getText();
                             rangeString = rangeField.getText();
                             DHCP = true;
-                        }
+                        
                         System.out.println("DHCP Server and Client Set Up with Client IP: " + clientIpField.getText()
                                 + " and Range: " + rangeField.getText());
                         JOptionPane.showMessageDialog(frame, "DHCP Server and Client Set Up with Client IP: "
                                 + clientIpField.getText() + " and Range: " + rangeField.getText());
 
                     });
+                    centerPanel.add(dhcpButton);
                     centerPanel.add(dhcpPanel);
                 });
 

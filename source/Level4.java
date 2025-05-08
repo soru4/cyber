@@ -82,7 +82,7 @@ public class Level4 extends Level implements ActionListener, MouseListener, Mous
                     if (option.equals(q.getCorrectString())) {
                         score++;
                         JOptionPane.showMessageDialog(frame, "Correct! Your score is: " + score);
-                        if (score == 3) {
+                        if (score == questions.size()) {
                             frame.dispose();
                             Scene.allLevelInstances.add(new Level5()); // Assuming Level1 is the next level
                         }

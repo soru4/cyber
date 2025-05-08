@@ -20,17 +20,14 @@ public class Level5 extends Level implements ActionListener, MouseListener, Mous
     public ArrayList<QuestionList> questions = new ArrayList<QuestionList>();
 
     public Level5() {
+        questions.add(new QuestionList("What is the primary function of the Session Layer?",
+                new String[]{"Ensuring reliable data transmission","Managing connections and dialogs between applications","Routing data packets across a network","Formatting data for transport"}, "Ensuring reliable data transmission"));
         questions.add(new QuestionList(
-                "Which layer of the TCP/IP model is responsible for ensuring packets are sent reliably and any missing packets are resent?",
-                new String[]{"OSI", "network layer", "transport layer", "application"}, "transport layer"));
-        questions.add(new QuestionList(
-                "Which type of applications are best suited to use UDP as the transport layer protocol?",
-                new String[]{"low transport delay", "network layer", "transport layer", "high transport delay"},
-                "low transport delay"));
-        questions.add(new QuestionList("Which of the following is not a valid TCP state?",
-                new String[]{"SYN_SENT", "SYN_RECEIVED", "SYN_ACK", "ESTABLISHED"}, "SYN_ACK"));
-        questions.add(new QuestionList("Which port number is used by HTTP?",
-                new String[]{"Port 23", "Port 80", "Port 53", "Port 110"}, "Port 80"));
+                "Which of the following is a key service provided by the Session Layer?",
+                new String[]{" TCP and UDP protocol selection",  "Address resolution and subnet masking", "Session establishment, maintenance, and termination", "Encryption and decryption of data "},
+                "Session establishment, maintenance, and termination"));
+        questions.add(new QuestionList("If a session is broken, what action might the session layer take?",
+                new String[]{"It will attempt to re-establish the session", "It will discard the data that was being transmitted",  "It will report the error to the network layer", "It will notify the application layer that the connection has been lost"}, "It will attempt to re-establish the session"));
 
         init();
     }
