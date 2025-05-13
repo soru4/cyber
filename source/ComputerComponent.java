@@ -55,8 +55,7 @@ public class ComputerComponent {
 
             if (component.isSouthOf(this)) {
                 System.out.println("The component is south of the reference component.");
-                JOptionPane.showMessageDialog(frame,
-                        "The component is south of the reference component.");
+                
                 component.setIP(getIP() + "/" + ((int) ((Math.random() * 15) + 1)));
             }
             conn.add(component);
@@ -110,7 +109,7 @@ public class ComputerComponent {
         }
         for (ComputerComponent c : component.conn) {
 
-            
+
             if (c.equals(this)) {
                 return true;
             }
