@@ -111,7 +111,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
             for (ComponentHolder s : holders) {
                 if (s.component.type.equals("Computer")) {
 
-                    if (s.component.isSouthOf(world)) {
+                    if (s.component.isTypeSouthOf(world, "Computer")) {
                         computer++;
                     }
                 }

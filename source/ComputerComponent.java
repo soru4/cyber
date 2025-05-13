@@ -103,10 +103,14 @@ public class ComputerComponent {
     public boolean isSouthOf(ComputerComponent component) {
         // if this componet is connected to the reference component, then it is south of
         // the reference component.
+
+
         if (component.conn.isEmpty()) {
             return false;
         }
         for (ComputerComponent c : component.conn) {
+
+            
             if (c.equals(this)) {
                 return true;
             }
@@ -115,6 +119,24 @@ public class ComputerComponent {
             return isSouthOf(c);
         }
         return false;
+    }
+
+    
+    public int numberIsSouthOf(ComputerComponent component, int num) {
+        // if this componet is connected to the reference component, then it is south of
+        // the reference component.
+        if (component.conn.isEmpty()) {
+            return 0;
+        }
+        for (ComputerComponent c : component.conn) {
+            if (c.equals(this)) {
+                return 1;
+            }
+        }
+        for (ComputerComponent c : component.conn) {
+            return num + numberIsSouthOf(c, num);
+        }
+        return 0;
     }
 
 
@@ -149,7 +171,7 @@ public class ComputerComponent {
         for (ComputerComponent c : component.conn) {
             switch (component.type) {
                 case "World":
-                    if (c.type.equals("Router") || c.type.equals("Switch")) {
+                    if (c.type.equals("Router") || c.type.equals("Switch") || c.type.equals("Server")) {
                         return true && isValidConnection(c);
                     }
 
