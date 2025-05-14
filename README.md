@@ -37,6 +37,4 @@ or use the jar from the releases
 ## TODO
 
 * Create Level 7. (Type in a url and the game plays an animation going back through everything that you did)
-* Make this game have a proper build system (Maven, Gradle, ...)
-* Add a release with the jar
 * Make a Windows wrapper for the jar
