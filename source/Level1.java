@@ -155,7 +155,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (cart.size() >= 1 && budget >= 0) {
-                   Scene.allLevelInstances.add( new Level2(cart));
+                   Scene.allLevelInstances.add( new Level2(cart, scenario));
                     frame.dispose();
                 } else {
                     JOptionPane.showMessageDialog(frame, "Empty cart or over budget");

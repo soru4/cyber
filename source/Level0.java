@@ -22,6 +22,10 @@ public class Level0 extends Level implements ActionListener, MouseListener, Mous
     public Level0() {
         init();
     }
+    public Level0(Scenario s) {
+        scenario = s;
+        init();
+    }
 
     private void init() {
         frame = new JFrame("Intro");

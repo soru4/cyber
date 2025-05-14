@@ -23,8 +23,10 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
     public boolean isPlaceMode = false;
     public boolean isClicking = false;
     public static int numOfWires = 0;
+    private Scenario scenario;
 
-    public Level2(ArrayList<ComputerComponent> cart) {
+    public Level2(ArrayList<ComputerComponent> cart, Scenario s) {
+        scenario = s;
         pulledCart = cart;
         init();
     }
@@ -188,8 +190,14 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
             button5.setLabel(isPlaceMode ? "Turn off Build Mode" : "Turn on Build Mode");
             panel2.setBackground(isPlaceMode ? Color.GREEN : Color.GRAY);
         });
+        Button button6 = new Button("Return to Scenario");
+        button6.addActionListener((ActionEvent e) -> {
+            new Level0(scenario);
+            frame.dispose();
+        });
         panel.add(button4);
         panel.add(button5);
+        panel.add(button6);
 
         frame.add(panel, BorderLayout.NORTH);
         frame.setVisible(true);
