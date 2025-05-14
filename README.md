@@ -16,6 +16,8 @@ Licensed under the MIT.
 java source/Runner.java
 ```
 
+or use the jar from the releases
+
 ## How to play
 
 0. The game will generate a scenario, including the budget, workforce, and network type.
