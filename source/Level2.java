@@ -24,7 +24,9 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
     public boolean isClicking = false;
     public static int numOfWires = 0;
     private Scenario scenario;
-
+    /**
+     * sets the scenario, sets the Level 2  cart to the same cart used in Level1. 
+     */
     public Level2(ArrayList<ComputerComponent> cart, Scenario s) {
         scenario = s;
         pulledCart = cart;
@@ -36,7 +38,9 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
         System.out.println("default button click");
         updateFrame(frame);
     }
-
+    /**
+     * Creates window. Creates basic layout and top bar. Creates button in top bar and sets their behaviour. 
+     */
     private void init() {
 
         frame = new JFrame("Level Two");
@@ -245,11 +249,11 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
         placeLevel1Components(panel2, components);
         updateFrame(frame);
     }
-
+    /**Updates the given jframe */
     public void updateFrame(JFrame j) {
         j.setVisible(true);
     }
-
+    /**Goes through all the comonents in the cart and places them on the array.  */
     public void placeLevel1Components(JPanel p, ArrayList<JLabel> arr) {
         for (JLabel l : arr) {
             l.setVisible(true);
@@ -258,7 +262,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
             p.add(l);
         }
     }
-
+/**Creates assoctiations between components in the cart and the images that should be rendered on the screen. Places the components on the screen  */
     public void populateComponentList(ArrayList<ComputerComponent> cart, JPanel panel) {
 
         world = new ComputerComponent(0, "World", 1);
@@ -341,6 +345,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
     }
 
     @Override
+    /**detects the components that you are clicking and adds them to a set. Creates a right click panel when you right click */
     public void mousePressed(MouseEvent e) {
         JLabel touched = (JLabel) (e.getComponent());
         startPoint = SwingUtilities.convertPoint(touched, e.getPoint(), touched.getParent());
@@ -388,7 +393,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
         }
 
     }
-
+    /**Adds the right click menu to screen */
     private JPopupMenu createPopupMenu(ComputerComponent x) {
 
         JPopupMenu popupMenu = new JPopupMenu();
@@ -407,6 +412,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
     }
 
     @Override
+    /**Resets everything on mouse release */
     public void mouseReleased(MouseEvent e) {
         startPoint = null;
         isClicking = false;

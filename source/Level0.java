@@ -26,7 +26,9 @@ public class Level0 extends Level implements ActionListener, MouseListener, Mous
         scenario = s;
         init();
     }
-
+    /**
+     * Creates a winbdown and sets the layout and starts adding elements. 
+     */
     private void init() {
         frame = new JFrame("Intro");
         frame.setSize(1920, 1080);
@@ -36,7 +38,9 @@ public class Level0 extends Level implements ActionListener, MouseListener, Mous
 
         frame.setVisible(true);
     }
-
+    /**
+     * Adds all the components to the screen.  and when a button is pressed, it will create a new instance of Level1, and delete the level0 window. 
+     */
     private void addElements() {
         label = new JLabel(scenario.getScenario());
         frame.add(label);
@@ -52,6 +56,9 @@ public class Level0 extends Level implements ActionListener, MouseListener, Mous
     }
 
     @Override
+    /**
+     * Calculates where a component should be based on where the mouse is. 
+     */
     public void mouseDragged(MouseEvent e) {
         JLabel touched = (JLabel) (e.getComponent());
 

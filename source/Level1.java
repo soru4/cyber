@@ -34,6 +34,8 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
     public final ComputerComponent C_SWITCH = new ComputerComponent(300, "Switch", 20, "assets/Switch.png");
     public static Scenario build;
 
+
+    /**Sets static variables and calls the init method */
     public Level1(Scenario s) {
         scenario = s;
         budget = scenario.getBudget();
@@ -41,7 +43,9 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
         build = s;
         init();
     }
-
+    /**
+     * Creates the window and calls the add elements method
+     */
     private void init() {
         this.cart = new ArrayList<ComputerComponent>();
         frame = new JFrame("Level One");
@@ -52,7 +56,9 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
 
         frame.setVisible(true);
     }
-
+    /**
+     * Adds all of the buttons and adds in action events so that when each button is pressed, it removes from total price. 
+     */
     private void addElements() {
         GridBagConstraints c = new GridBagConstraints();
         addComputer = new JButton(
@@ -163,11 +169,15 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             }
         });
     }
-
+    /**
+     * Returns the cart
+     */
     public ArrayList<ComputerComponent> getCart() {
         return cart;
     }
-
+    /**
+     * Counts the number of components of type in the cart. 
+     */
     private int countComponents(String type) {
         int count = 0;
         for (ComputerComponent component : cart) {
@@ -195,7 +205,9 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
         }
 
     }
-
+    /**
+     * returns the scenario instance. 
+     */
     public Scenario getScenario() {
         return scenario;
     }

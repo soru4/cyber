@@ -2,7 +2,10 @@
 package source;
 
 public class Runner {
-
+    /**
+     * 
+     * This calls the scene constructor which sets up level 0. 
+     */
     public static void main(String[] args) {
         // In the end product, this should use Level0
         // Window mainGameWindow = new Window();
