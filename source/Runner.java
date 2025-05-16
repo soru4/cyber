@@ -11,7 +11,7 @@ public class Runner {
         // Window mainGameWindow = new Window();
 
         ///All lines of code need to be above this line!!!!
-        new Scene();
+        Scene s = new Scene();
 
     }
 

@@ -24,7 +24,7 @@ public class Scenario {
         this.currName = C_NAMES[((int) (Math.random() * C_NAMES.length))];
 
         this.workforceSize = (int) (Math.random() * 6) + 1;
-        this.budget = (int) (Math.random() * 14000) + (2200 * workforceSize);
+        this.budget = (int) (Math.random() * 14000) + (2500 * workforceSize) + 1000;
         this.securityString = S_LEVELS[(int) (Math.random() * S_LEVELS.length)];
     }
 
