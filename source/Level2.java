@@ -183,7 +183,7 @@ public class Level2 extends Level implements ActionListener, MouseListener, Mous
                 
             } else {
                 JOptionPane.showMessageDialog(frame,
-                        "You have one or more invalid connections in your world or you dont have enough computers. Please check your connections and try again! You are bad!");
+                        "You have one or more invalid connections in your world or you dont have enough computers. Please check your connections and try again!");
             }
 
         });

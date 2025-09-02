@@ -67,7 +67,7 @@ public class Level1 extends Level implements ActionListener, MouseListener, Mous
             @Override
             public void actionPerformed(ActionEvent e) {
                 budget -= COMPUTER.getPrice();
-                label.setText(String.valueOf(budget));
+                label.setText("Budget: $" + String.valueOf(budget));
                 cart.add(new ComputerComponent(1000, "Computer", 1, getClass().getClassLoader().getResource("assets/PC.png").getPath()));
                 addComputer.setText(
                         String.format("Computer ($%d, %d in cart)", COMPUTER.getPrice(),

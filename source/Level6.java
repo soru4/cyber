@@ -61,7 +61,7 @@ public class Level6 extends Level implements ActionListener, MouseListener, Mous
             Cipher c = new Cipher("Trains are the best mode of transport", "", 3);
             c.encrypt(c.getPlainText(), (int) (Math.random() * 26) + 1);
             JLabel questionLabel = new JLabel(
-                    "Decrypt the cipher:  " + c.getCipherText() + " Which has a shift of: " + c.getShift());
+                    "Decrypt the cipher:  " + c.getCipherText() + ". The cipher has a shift of: " + c.getShift());
             questionLabel.setFont(new Font("Arial", Font.BOLD, 24)); // set the font size
             JButton button = new JButton("Submit");
             centerPanel.add(questionLabel);

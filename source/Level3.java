@@ -54,7 +54,7 @@ public class Level3 extends Level implements ActionListener, MouseListener, Mous
         JPanel topPanel = new JPanel(true);
         JLabel topLabel = new JLabel("IP Router Settings: ");
         JButton topButton = new JButton("Check");
-        JButton topButton1 = new JButton("Check Senario");
+        JButton topButton1 = new JButton("Check Scenario");
         topButton1.addActionListener((ActionEvent e) ->{
             JOptionPane.showMessageDialog(frame, Level1.build.getScenario());
         });
